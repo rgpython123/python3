@@ -1,0 +1,1277 @@
+
+Q: What is a KERNEL?
+ 
+     Software on the server that handles inter-process communication, I/O, memory
+management, networking, process and thread management & security.
+
+
+Q: How do you modify kernel parameters?
+
+# vim /proc or /proc/sys/*
+   OR
+# vim /etc/sysctl.conf OR /etc/sysctl.d/99-example.conf
+# sysctl –p    ### To update.
+# sysctl –a    ### To check & confirm.
+
+
+Q: How do you Enable IP Forwarding?
+
+$ echo "net.ipv4.ip_forward = 1"|sudo tee /etc/sysctl.d/99-ipforward.conf
+net.ipv4.ip_forward = 1
+
+$ sudo sysctl -p /etc/sysctl.d/99-ipforward.conf
+net.ipv4.ip_forward = 1
+
+
+Q: How do you list Kernel Modules?
+
+- lsmod / modprobe 2XTAB ENT
+
+
+Q: How do you install Kernel Modules?
+
+- insmod / modprobe -a <mod>
+
+
+Q: How do you remove Kernel Modules?
+
+- rmmod / modprobe -r <mod>
+
+
+Q: What are some performance monitoring tools?
+
+free, iostat, netstat, sar, vmstat
+
+
+Q: What is vmstat?
+
+Virtual Memory Statistics 
+
+
+Q: What is the format of the vmstat command?
+
+# vmstat 5 5
+  vmstat delay count
+
+Q: What is the output of the vmstat command?
+
+   procs    r b
+   memory   swap free buff/cache
+   swap     si so
+   io       bi bo
+   system   in cs 
+   cpu      us sys id wa st
+
+
+Q: How do you check network port usage?
+ 
+   netstat   
+          -a  (port usage)
+          -l   (listeningPorts)
+          -n  (I.P.’s)
+          -p  (processes)
+          -r   (routingTable)
+          -i   (interface~errors)
+          -s  (stats~packetsDropped)
+
+
+Q: How would you perform a Network Throughput Test?
+
+ftp> put "|dd if=/dev/zero bs=1024k count=1024" /dev/null
+
+
+Q: What are some important configuration files?
+
+Kernel, Logging, Networking, Kernel Parameters, DNS(client&server)
+  
+Kernel             - /boot/vmlinuz*
+
+Logging            - /var/log/messages
+
+Networking         - /etc/sysconfig/network & network-scripts/ifcfg-ens33
+
+Kernel Parameters  - /etc/sysctl.conf or /etc/sysctl.d/*
+
+DNS                - /etc/resolv.conf, 
+    /etc/named.conf,
+/etc/named/zones/root forward reverse local
+
+
+Q: How do you query DNS?
+
+dig, host, nslookup
+
+
+Q: What are a couple of DNS Resource Records?
+
+SOA
+
+NS
+MX
+
+A AAAA
+CNAME
+PTR
+
+TXT
+
+
+Q: What are a few DNS Country Codes?
+
+au
+co
+de
+eu
+fi
+fr
+tt
+uk
+
+
+Q: What are a few DNS Domains?
+
+arpa
+biz
+com
+edu
+gov
+info
+mil
+net
+org
+tv
+
+
+Q: How do you display network devices information?
+
+# ifconfig -a
+# ip addr show/list
+
+
+Q: How do you display the routing table?  
+
+# route
+# ip route show/list
+# netstat -rn
+
+
+Q: How do you display the ARP table?
+  
+# arp -a
+# ip neigh show/list
+
+
+Q: How do you clear the ARP table?
+
+# ip -s -s neigh flush all
+# arp -n
+
+
+Q: What is a Dentry?
+
+A data structure used to represent a Directory.
+
+
+Q: What is an INODE?
+   
+    inode - a data structure used to represent a filesystem object, which can be one of various things including a file or a directory.
+
+
+Q: What information is contained in an Inode?
+
+   owner type size
+   group permissions dates
+   pointers to data
+
+
+Q: What command/system call can you use to get Inode information?
+  
+   stat: Getting inode information
+
+   stat() is a Unix system call that returns useful data about a file inode.
+
+   Example:
+# stat /tmp/test123.txt
+File: `/tmp/test123.txt'
+Size: 23              Blocks: 8          IO Block: 4096   regular file
+Device: fd02h/64770d    Inode: 17          Links: 1
+Access: (0644/-rw-r--r--)  Uid: (  500/ user1)   Gid: (  501/   ossec)
+Access: 2011-01-21 12:56:05.000000000 -0500
+Modify: 2011-01-21 06:36:01.000000000 -0500
+Change: 2011-01-21 06:36:01.000000000 -0500
+
+
+Q: How do you get the long listing of a file?
+
+# ls -l | grep test123.txt
+-rw-r--r-- 1 user1  ossec        23 Jan 21 06:36 test123.txt
+
+
+Q: How do you get the inode number of a file?
+
+# ls -i | grep test123.txt
+17 test123.txt
+
+
+Q: What are the process states in Unix?
+  
+Running : The process is either running or it is ready to run.
+
+Waiting : The process is waiting for an event or for a resource.
+
+Stopped : The process has been stopped, usually by receiving a signal.
+
+Zombie : The process is dead but have not been removed from the process table.
+
+
+Q: What is a Zombie process?
+ 
+   Zombie = When a program forks and the child finishes before the parent, the kernel still keeps some of its information about the child in case the parent might need it - for example, the parent may need to check the child's exit status. To be able to get this information, the parent calls `wait()'; In the interval between the child terminating
+and the parent calling `wait()', the child is said to be a `zombie'.
+
+(If you do `ps', the child will have a `Z' in its status field to indicate this.)
+
+Finding Zombies => ps aux | grep -w Z
+
+
+Q: How can you create and test for a Zombie process?
+
+# vim zombie.c
++++
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+int main ()
+{
+  pid_t child_pid;
+
+  child_pid = fork ();
+  if (child_pid > 0) {
+    sleep (60);
+  }
+  else {
+    exit (0);
+  }
+  return 0;
+}
++++
+
+# cc zombie.c -o zombie
+
+# ./zombie
+
+# ps aux | grep -w Z
+root      9662  0.0  0.0      0     0 pts/0    Z+   21:29   0:00 [zombie] <defunct>
+
+
+Q: What is a Orphan process? 
+
+   Orphan = An orphan process is a computer process whose parent process has finished or terminated, though itself remains running.
+
+In a Unix-like operating system any orphaned process will be
+immediately adopted by the special init system process. This operation is called re-parenting and occurs automatically. Even though technically the process has the "init" process as its parent, it is still called an orphan process since the process that originally created it no longer exists.
+
+
+Q: How do you find Orphan process?
+
+# ps -elf | awk '{if ($5 == 1){print $4" "$5" "$15}}'
+
+
+Q: What are UNIX System calls for a File?
+  
+   • System calls for low level file I/O:
+create
+open
+close
+read
+write
+lseek
+unlink
+
+
+Q: What are UNIX System calls for a process?
+
+   • System Calls for process control
+exec
+fork
+wait
+exit
+signal
+kill
+
+
+Q: What are UNIX System calls for IPC?
+
+   • System Calls for IPC
+dup
+pipe
+
+
+Q: What are UNIX System calls for Networking?
+
+   • Networking/Socket System calls:
+socket
+bind
+listen
+accept
+connect
+shutdown
+close
+send
+receive
+
+
+• * Socket - The socket system call creates a new socket by assigning
+a new descriptor.
+
+• * Bind - The bind system call associates a local network transport address with a socket
+
+• * Listen - This call indicates that the server process is ready to
+accept any new incoming connections
+
+• * Accept - The accept system call is a blocking call that waits for incoming connections.
+
+• * Connect - The connect system call is normally called by the client process to connect to the server process.
+
+• * Shutdown - The shutdown system call closes either one or both ends of the connection.
+
+• * Close - The close system call closes or aborts any pending
+connections on the socket.
+
+• * Send - There are four system calls to send data on the n/w
+interface: write, writev, sendto, and sendmsg.
+
+• * Receive - There are 4 system calls that can be used to receive
+data from a connection: read, readv, recvfrom, and recvmsg.
+
+
+Q: What are a few UNIX Signals?
+
+1  Hangup
+2  Interupt
+3  Quit
+9  Kill
+15 Soft Term
+
+
+Q: What are a few Built-in Shell Variables?
+
+$0  command name
+$n  nth command line argument
+
+$#  number of command line arguments
+
+$*  all of the command line arguments
+$@  all of the command line arguments in iterable list
+
+$$  pid of current running process
+$!  pid of last run background command
+
+$?  exit code of last command run
+
+
+ Q: What are a few "SHELL CONDITIONAL EXPRESSIONS"?
+  
+-a file
+True if file exists.
+
+-b file
+True if file exists and is a block special file.
+
+-c file
+True if file exists and is a character special file.
+
+-d file
+True if file exists and is a directory.
+
+-e file
+True if file exists.
+
+-f file
+True if file exists and is a regular file.
+
+-g file
+True if file exists and is set-group-id.
+
+-h file {also –L}
+True if file exists and is a symbolic link.
+
+-k file
+True if file exists and its "sticky" bit is set.
+
+-p file
+True if file exists and is a named pipe (FIFO).
+
+-r file
+True if file exists and is readable.
+
+-s file
+True if file exists and has a size greater than zero.
+
+-t fd
+True if file descriptor fd is open and refers to a terminal.
+
+-u file
+True if file exists and its set-user-id bit is set.
+
+-w file
+True if file exists and is writable.
+
+-x file
+True if file exists and is executable.
+
+-O file
+True if file exists and is owned by the effective user id.
+
+-G file
+True if file exists and is owned by the effective group id.
+
+-S file
+True if file exists and is a socket.
+
+
+! EXPRESSION	
+The EXPRESSION is false.
+
+-n STRING	
+The length of STRING is greater than zero.
+
+-z STRING	
+The length of STRING is zero.
+
+STRING1 = STRING2	
+STRING1 is equal to STRING2
+
+STRING1 != STRING2	
+STRING1 is not equal to STRING2
+
+INTEGER1 -eq INTEGER2	
+INTEGER1 is numerically equal to INTEGER2
+
+INTEGER1 -gt INTEGER2	
+INTEGER1 is numerically greater than INTEGER2
+
+INTEGER1 -lt INTEGER2	
+INTEGER1 is numerically less than INTEGER2
+
+
+
+Q: What is a script that can check for the existence of the messages file?
+
+   Sample Script:
+# vim file_check.sh 
++++
+#!/bin/bash
+
+echo "This script checks the existence of a file."
+sleep 1
+
+echo "Checking..."
+sleep 1
+
+if [ -f $1 ]
+  then
+    echo "File $1 exists."
+else
+  echo "File $1 does not exist."
+fi
+
+echo
+sleep 1
+
+echo "...done."
++++
+
+Running:
+# bash file_check.sh /var/log/messages
+This script checks the existence of a file.
+Checking...
+File /var/log/messages exists.
+
+...done.
+
+# bash file_check.sh /var/log/nofile
+This script checks the existence of a file.
+Checking...
+File /var/log/nofile does not exist.
+
+...done.
+
+
+Q: How do you query a package that has NOT been installed yet?
+
+   To query a package that has NOT been installed yet, add the
+   -p
+
+For example, rpm -ql package would become
+# rpm -qpl package.
+
+
+Q: How do you query package names using wildcards?
+
+# rpm -qa | grep pattern
+# yum list | grep pattern
+ 
+
+Q: How do you find out what files are included in the package?
+
+# rpm -ql package
+
+
+Q: How do you find out what are the config files in a package?
+
+# rpm -qc package
+
+
+Q: How do you find what are the documentation files in a package?
+
+# rpm -qd package
+
+
+Q: How do you show general info on a package?
+
+# rpm -qi package
+# yum info package
+
+
+Q: How do you find out what package owns this file?
+
+# rpm -qf path/to/file 
+# yum provides path/to/file 
+
+
+Q: How do you find out what are the scripts in a package?
+
+# rpm -q --scripts package
+
+
+Q: How do you find out what services does this package provide?
+
+# rpm -q --provides package
+
+
+Q: How do you find out what services does this package require?
+
+# rpm -q --requires package
+
+
+Q: How do you clean up yum’s cache, packages, headers, metadata, dbcache, rpmdb & plugins?
+
+# yum clean all
+
+
+Q: What are some Port Numbers?
+ 
+20/21
+
+ FTP (Data/Control)
+
+22    
+
+ SSH
+
+23    
+
+ TELNET
+
+25    
+ 
+ SMTP
+
+53    
+ 
+ DNS
+
+67/68 
+
+ DHCP Server 67
+ DHCP Client 68
+
+69   
+ 
+ TFTP
+
+80    
+ 
+ HTTP
+
+88    
+ 
+ Kerberos
+
+110  
+
+ POP3
+
+119  
+
+ NNTP
+
+123
+
+  NTP
+
+143   
+
+ IMAP4
+
+161   
+
+ SNMP
+
+162   
+
+ SNMPTRAP
+
+389  
+
+ LDAP
+ 
+443  
+
+ HTTPS
+
+465
+
+secure SMTP
+
+514   
+
+ SYSLOG
+
+636   
+
+ LDAPS
+
+993
+
+IMAP over SSL
+
+995
+
+  Secure POP3
+
+11211
+  
+   Memcached
+
+2379
+
+  Kubernetes etcd
+
+3128 
+
+ SQUID
+
+3306
+
+  MySQL/MariaDB
+
+6379
+
+  REDIS
+
+8140 
+
+ PUPPET
+
+27017
+
+  MongoDB
+
+
+Q: How do you create an SSL Tunnel?
+  
+# ssh -L 8888:smf1-afk-15-sr4.prod.tw.com:31567 nest1.corp.twitter.com -N
+
+  Then go to the website …
+    Ex: http://127.0.0.1:8888/
+
+   OR
+
+Socket Secure (SOCKS)
+
+# ssh -D 8080 user1@nest1.corp.twitter.com
+
+Network => Advanced => SOCKS Proxy => 127.0.0.1:8080
+
+  Then go to the website …
+    Ex: http://smf1-afk-15-sr4.prod.tw.com:31567/
+
+
+Q: What are the Private Address Spaces
+  
+     10.0.0.0        -   10.255.255.255  (10/8 prefix)
+
+     172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+
+     192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+
+
+Q: What are the Network Number Address Ranges?
+   
+A = 1   – 126 N.H.H.H     16,777,216 addresses
+L = 127
+B = 128 – 191 N.N.H.H         65,536 addresses
+C = 192 – 223 N.N.N.H            255 addresses
+D = 224 – 239 Reserved for Multicasting
+E = 240 - 254 Experimental; Used for research
+
+
+Q: Where is the user-specific SSH configuration information stored?
+
+In the user's home directory within the ~/.ssh/ directory
+
+
+Q: What are the Private/Public Keys for RSA V1?
+
+identity
+identity.pub
+
+Q: What are the Private/Public Keys for RSA V2?
+
+id_rsa 
+id_rsa.pub
+
+
+Q: What are the Private/Public Keys for DSA?
+
+id_dsa
+id_dsa.pub
+
+
+Q: What file holds a list of authorized public keys for servers?
+
+ ~/.ssh/authorized_keys
+
+
+Q: How does the ssh process work with keys?
+
+When the client connects to a server, the server authenticates the client by checking its signed public key stored within the authorized_keys file.
+
+
+Q: How can you better secure Public Keys?
+
+Move authorized_keys to /etc/ssh/publickeys/ and create a symbolic link from users directory to here.
+
+
+Q: What file contains DSA host keys of SSH servers?
+
+~/.ssh/known_hosts
+                     
+
+Q: What is the known_hosts file used for?
+
+This file is for ensuring that the SSH client is connecting the correct SSH server.
+
+
+Q: What happens if the server's host key changes?
+
+If an SSH server's host key has changed, the client notifies the user that the connection cannot proceed until the server's host key is deleted from the known_hosts file.
+
+
+Q: How do you generate a DSA Private/Public key?
+
+#  ssh-keygen -t dsa
+
+
+Q: How do you sync filesystems?
+
+Use rsync.
+# rsync [OPTIONS] [SRC] [DEST]
+-v : verbose
+-r : copies data recursively (don’t preserve inode data)
+-a : archive mode: copy files recursively, preserve inode data.
+-z : compress file data
+-h : human-readable, output numbers in a human-readable format
+-e : specify the remote shell to use
+--bwlimit=KBPS          limit I/O bandwidth; KBytes per second
+
+# rsync -zvh backup.tar /tmp/backups/
+# rsync -avzh /root/rpmpkgs /tmp/backups/
+# rsync -avz rpmpkgs/ root@192.168.0.101:/home/
+# rsync -avzh root@192.168.0.100:/home/rgriffith/rpmpkgs /tmp/myrpms
+# rsync -avzhe ssh root@192.168.0.100:/root/install.log /tmp/
+# rsync -avzhe ssh backup.tar root@192.168.0.100:/backups/
+# rsync -avzhe ssh --progress /home/rpmpkgs root@192.168.0.100:/root/rpmpkgs
+# rsync -avze ssh --include 'R*' --exclude '*' root@192.168.0.101:/var/lib/rpm/ /root/rpm
+# rsync -avzhe ssh --max-size='200k' /var/lib/rpm/ root@192.168.0.100:/root/tmprpm
+# rsync --bwlimit=100 -avzhe ssh  /var/lib/rpm/  root@192.168.0.100:/root/tmprpm/
+
+   *** CAREFUL***   Deletes files on target if not on source.
+# rsync -avz --delete root@192.168.0.100:/var/lib/rpm/ .
+   *** CAREFUL***   Deletes files on target if not on source.
+
+   *** CAREFUL***   Deletes source files.
+# rsync --remove-source-files -zvh backup.tar /tmp/backups/
+   *** CAREFUL***   Deletes source files.
+
+
+Q: What is the difference between a logical link and hard link?
+
+inode & across filesystems.
+
+- Hard Link:
+   More than one filename reference the same inode number.
+   Hard links must reside on the same filesystem as the real/source file.
+   The real/source file must exist.
+
+- Soft Link: 
+   Special file (with unique inode) is created that points to real/source file.
+   Special file is called 'soft link' or a 'symbolic link' (aka a 'symlink').
+   Soft links can reside on separate filesystems than the real/source file.
+   The real/source file does not have to exist.
+   Additional I/O necessary to complete file access.
+   Additional storage taken up by Soft Link's file data. 
+
+
+Q: What is od?
+
+octal dump
+
+
+Q: What is tr?
+
+translate or delete characters
+
+Example: # tr -d '\177' <file
+
+
+Q: What tools can you use to clean up files with bad/mystery characters in it?
+
+dos2unix, cat -v, od -c
+
+od -c : prints out all regular characters in ASCII.
+
+null         \0
+backspace    \b
+form-feed    \f
+new-line     \n
+return       \r
+tab          \t
+
+- if od doesn't recognize a regular ASCII character, it will dump the octal value.  See Example 4.
+
+
+   Example 1: "cat -v"
+   ----------
+host # cat file
+def
+host # cat -v file
+abc^Mdef
+
+
+   Example 2: "od -c"
+   ----------
+host # od -c file
+0000000 a b c \r d e f \n
+0000010
+
+       Note:
+       -----
+       - With the "-c" flag used, the "^M" character shows up as "\r".
+       - The byte-offset is also off ... it should be 7 instead of 10
+like the below example.
+
+    Example 3: "cat", "cat -v" & "od -c" with no funny characters.
+   ----------
+host # cat file
+abcdef
+
+host # cat -v file
+abcdef
+
+host # od -c file
+0000000 a b c d e f \n
+0000007
+
+
+    Example 4: od does not recognize and can not translate ASCII character.
+   ----------
+host # cat file
+bcdef
+
+host # cat -v file
+a^?bcdef
+
+host # od -c file
+0000000 a 177 b c d e f \n
+0000010
+
+
+    Example 4: Solution.
+   ----------
+host # cat file
+bcdef
+
+host # cat -v file
+a^?bcdef
+
+host # od -c file
+0000000 a 177 b c d e f \n
+0000010
+
+host # tr -d '\177' <file
+abcdef
+
+host # tr -d '\177' <file >file2 <--- Where the magic happens...
+host # cat file2
+abcdef
+
+host # cat -v file2
+abcdef
+
+host # od -c file2
+0000000 a b c d e f \n
+0000007
+
+
+
+Q: How can you create files 1-9 and a-g quickly?
+
+# for i in {a..g}; do touch $i; done
+# for i in {1..9}; do touch $i; done
+
+
+Q: How can you match any string of zero or more characters?
+
+*
+
+
+Q: How can you match 0 or 1 single character?
+
+?
+
+
+Q: How can you match a set of characters?
+
+# ls -l [af37]
+# ls -l [3-8]
+# ls -l [a-c]
+
+
+Q: How can you match characters not in a set?
+
+# ls -l [^af37]
+# ls -l [!af37]
+
+
+Q: How can you go to the home directory of the current user?
+
+# cd ~
+
+
+Q: How can you go to the home directory of a specific user?
+
+# cd ~username
+
+
+Q: How can you redirect all output of several commands "date", "who" & "pwd" to a logfile?
+
+# (date; who; pwd) > logfile
+
+
+Q: How can you execute commands sequentially?
+
+# cd; ls
+ 
+
+Q: What is /dev/null?
+
+A special filesystem object that throws away everything written into it. 
+
+
+Q: What are the redirection forms?
+
+File        Name            Common abbreviation    Typical default
+Descriptor
+
+0            Standard input        stdin            Keyboard
+1            Standard output       stdout            Screen
+2            Standard error        stderr            Screen
+
+
+Q: What is 2>&1?
+
+Redirect Standard Error to Standard Output.
+
+
+Q: How can you send standard error to file but have standard output remain
+the same to the screen?
+
+# cmd 2>file
+
+     
+Q: How can you send both standard error and standard output to file?
+
+# cmd > file 2>&1
+
+
+Q: How can you send standard output to file f1, standard error to file f2?
+
+# cmd > f1 2>f2
+
+
+Q: How can you send output of cmd to standard output (terminal) and to files?
+
+# cmd | tee files
+      
+
+Q: How can you send standard output and standard error of cmd to standard output (terminal) and to files?
+
+# cmd 2>&1 | tee files    
+
+
+Q: What is tee?
+
+Send output to Screen & File.
+
+Example:
+# ls -1 *.txt | wc -l | tee count.txt
+
+Explanation:
+In the above example, the ls command lists all files in the current directory that have the filename extension .txt, one file per line; this output is piped to wc, which counts the lines and outputs the number; this output is piped to tee, which writes the output to the terminal, and writes the same information to the file count.txt. If count.txt already exists, it is overwritten.
+
+
+Q: What is SED?
+
+stream editor
+
+
+Q: How can you replace all instances of rgriffith with Robert Griffith in a file using SED?
+
+# cat file | sed 's/rgriffith/Robert Griffith/g'
+
+
+Q: How can you do the above modifying the file in place?
+
+# sed -i 's/rgriffith/Robert Griffith/g' file
+
+
+Q: How can you do the above modifying the file in place with a backup file?
+
+# sed -i.bak 's/rgriffith/Robert Griffith/g' file
+
+
+Q: What is awk and what is the abbreviation of?
+
+Text processing tool for data extraction and reporting.
+
+Abbreviation is last names of authors: 
+Alfred Aho
+Peter Weinberger
+Brian Kernighan
+
+
+Q: How can you, using awk, display the username and fullname of a specific user in /etc/passwd?
+
+# cat /etc/passwd | grep rgriffith | awk -F":" '{print $1, "\t", $5}'
+rgriffith 	 Robert Griffith
+
+
+Q: What is the boot process?
+
+RUNLEVEL
+INIT/TARGETS  (legacy => SysVinit) (Upstart {/etc/event.d/})
+KERNEL
+GRUB/LILO
+MBR
+BIOS
+POST
+
+
+Q: What is LILO?
+
+Linux Loader
+
+
+Q: What is GRUB?
+
+GRand Unified Bootloader
+
+
+Q: Name some CentOS 7 differences:
+
+Uses systemd rather than upstart or SysV.
+ - systemctl
+ - hostnamectl
+ - timedatectl
+
+Boot Process is different.
+ 
+TARGETS: default graphical multi-user basic sysinit local-fs
+KERNEL
+GRUB/LILO
+MBR
+BIOS
+POST
+
+
+Q: Where are the systemd target files located?
+
+/usr/lib/systemd/system
+
+
+Q: How do you mount a filesystem?
+
+# mount  "real"  "fake"
+# mount  /dev/hda2  /mnt
+
+
+Q: How do you list one file per line in a directory?
+
+# ls -1
+
+
+Q: What are a few Apache modules?
+
+mod_auth_digest
+mod_authz_owner
+mod_authz_user
+mod_authz_groupfile
+mod_authz_host
+mod_authz_svn
+mod_cgi
+mod_dav
+mod_dav_fs
+mod_dav_svn
+mod_dontdothat
+mod_gnutls
+mod_imagemap
+mod_info
+mod_(ldap,memcached,mongo,dbd,redis)
+mod_mime
+mod_(python,perl,php)
+mod_sed
+mod_ssl
+mod_status
+
+
+Q: What is Apache’s DocumentRoot?
+
+/var/www/html
+
+
+Q: Where are the Apache modules located?
+
+/etc/httpd/modules
+
+
+Q: What are three examples of Apache Static content?
+
+HTML files, Image files, CSS files
+
+
+Q: How do you use watch?
+
+# watch -n 1 uptime
+
+# watch -n 1 "ls -l"
+
+
+Q: What is  swatch?
+
+Watches your logs and watches them for regular expressions that you configure. Swatch will notify you via mail or the console screen (stdout) when it matches the configured log file entries with your watchfor directives.
+
+# vim /etc/swatch.conf
++++
+watchfor /success|accepted|rgriffith/
+         echo
+         write robrg
+         mail addresses=robrg\@localhost, subject=Successful Activity
++++
+
+# /usr/bin/swatch --daemon --config-file=/etc/swatch.conf
+--tail-file=/var/log/messages --pid-file=/var/run/swatch.pid
+
+### NOTE: The above will watch /var/log/messages for messages containing “success or accepted or rgriffith”.  If found, it will email robrg the message.
+
+
+
+
+
+
+
+Replication:
+
+Q: How do you replicate SVN servers?
+
+svnsync
+
+
+Q: How do you replicate LDAP servers?
+
+syncrepl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Networking:
+
+Q: What are a few Network Protocols?
+
+RIP 
+
+       - Routing Internet Protocol
+
+OSPF   
+
+       - Open Shortest Path First
+
+IGRP
+
+       - Interior Gateway Routing Protocol
+
+EIGRP
+
+       - Enhanced Interior Gateway Routing Protocol
+
+EGP
+
+       - Exterior Gateway Protocol
+
+BGP
+
+     - Border Gateway Protocol
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

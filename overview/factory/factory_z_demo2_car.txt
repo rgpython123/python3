@@ -1,0 +1,31 @@
+Factory: Encapsulating Object Creation
+
+Factory is an object for creating other objects
+
+
+# vim car.py
++++
+class Car(object):
+
+    @staticmethod
+    def factory(type):
+        if type == "Racecar":
+            return Racecar()
+        if type == "Van":
+            return Van()
+        assert 0, "Bad car creation: " + type
+
+
+class Racecar(Car):
+    def drive(self): print("Racecar driving.")
+
+
+class Van(Car):
+    def drive(self): print("Van driving.")
++++
+
+>>> import car
+
+# Create object using factory.
+>>> obj = car.Car.factory("Racecar")
+>>> obj.drive()

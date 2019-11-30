@@ -1,0 +1,31 @@
+
+
+
+   Examples:
+   =========
+
+   (1)
+   *** Server ***
+# python server_socketserver.py
+
+   *** Client ***
+# python client.py Testing 1 2 3 ...
+Sent:     Testing 1 2 3 ...
+Received: TESTING 1 2 3 ...
+
+   (2) Asynchronous Threaded SocketServer
+# vim threaded_socketserver.py
+Updated:
+server_thread.daemon = False   ### was True
+print "Server running on:", server.server_address    ### Added.
+###    server.shutdown()       ### uncomment out
+###    server.server_close()   ### uncomment out
+
+   *** Client ***
+# python
+>>> import threaded_socketserver as t
+>>> t.client("localhost", 55429, 'test')
+Received: Thread-5: test
+>>> t.client("localhost", 55429, 'test2')
+Received: Thread-6: test2
+

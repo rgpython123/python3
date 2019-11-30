@@ -1,0 +1,40 @@
+Rsyslog:
+
+
+$ sudo vim /etc/rsyslog.conf
++++
+$ModLoad imudp
+$UDPServerRun 514
++++
+
+
+
+$ sudo systemctl restart rsyslog
+
+
+
+$ vim testlogger.py
++++
+import logging
+import logging.handlers
+
+logger = logging.getLogger('myLogger')
+logger.setLevel(logging.INFO)
+
+#add handler to the logger
+handler = logging.handlers.SysLogHandler('/dev/log')
+
+#add formatter to the handler
+formatter = logging.Formatter('Python: { "loggerName":"%(name)s", "timestamp":"%(asctime)s", "pathName":"%(pathname)s", "logRecordCreationTime":"%(created)f", "functionName":"%(funcName)s", "levelNo":"%(levelno)s", "lineNo":"%(lineno)d", "time":"%(msecs)d", "levelName":"%(levelname)s", "message":"%(message)s"}')
+
+handler.formatter = formatter
+logger.addHandler(handler)
+
+logger.info("Test Message: 1 2 3")
++++
+
+
+$ sudo tail -f /var/log/messages
+...
+Sep  2 18:20:01 lb1 Python: { "loggerName":"myLogger", "timestamp":"2019-09-02 18:20:01,711", "pathName":"testlogger.py", "logRecordCreationTime":"1567473601.711207", "functionName":"<module>", "levelNo":"20", "lineNo":"16", "time":"711", "levelName":"INFO", "message":"Test Message: 1 2 3"}
+...

@@ -1,0 +1,85 @@
+
+Set Hostname       
+
+Update /etc/hosts       
+
+Create appuser            
+   with SUDO & SSH Keys       
+
+$ python3 -m venv venv
+
+$ source venv/bin/activate
+
+$ pip install -r requirements.txt
+   # Run this to generate requirements.txt file.
+   # pip freeze > requirements.txt
+
+$ vim settings.py
++++        
+  import json
+
+  with open('/etc/config.json') as config_file:
+      config = json.load(config_file)
+
+  SECRET_KEY = config['SECRET_KEY']
+  DEBUG = False
+  ALLOWED_HOSTS = ['IP']         
+  STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+  STATIC_URL = '/static/'  
+  EMAIL_HOST_USER = config.get('EMAIL_USER')   
+  EMAIL_HOST_PASSWORD = config.get('EMAIL_PASS')
++++      
+
+$ python manage.py collectstatic                         
+
+
+   Run below for testing.       
+$ python manage.py runserver 0.0.0.0:8000
+
+
+
+
+   Run below for Production in Docker image.
+
+$ vim Dockerfile
++++
+# Set the Base Image.
+FROM python:3.6.8
+
+# File Author / Maintainer
+MAINTAINER Robert Griffith
+
+# Add project files to the /usr/src/app folder.
+ADD . /usr/src/app
+
+# Set the directory where CMD will execute. 
+WORKDIR /usr/src/app
+COPY requirements.txt ./
+
+# Get pip to download and install requirements.
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose ports.
+EXPOSE 8000
+
+# Default command to execute.
+CMD exec gunicorn django_project.wsgi:application --bind 0.0.0.0:8000 --workers 3
++++
+
+$ sudo docker build . -t django
+
+$ sudo docker run -p 8000:8000 -d --rm --name django django
+
+
+
+
+   Run below for Production in Apache HTTPD Server.         
+$ sudo apt-get -y install apache2
+
+$ sudo apt-get -y install libapache2-mod-wsgi-py3
+
+$ cd /etc/apache2/sites-avaliable                     
+
+$ sudo a2ensite django_project
+
+$ sudo a2dissite 000-default.conf

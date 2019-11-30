@@ -1,0 +1,98 @@
+Python Testing:
+
+
+
+On Ansible Host:
+=============
+$ cd /home/ansible/git-testing/ansible_prep_server
+
+$ sudo vim /etc/hosts
++++
+18.188.247.166 python-testing-server
++++
+
+$ vim files/etc/hosts
++++
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+
+18.188.247.166 python-testing-server
++++
+
+$ vim hosts
++++
+[servers]
+python-testing-server
++++
+
+
+$ vim servers
++++
+python-testing-server
++++
+
+
+On Ansible Server:
+==================
+   Testing:
+$ ansible -i hosts all --key-file "~/kube.pem" -u centos -m ping
+$ ansible -i hosts all --key-file "~/kube.pem" -u centos -m ping --become-user=root
+$ ansible -i hosts all --key-file "~/kube.pem" -u centos -m command -a 'hostname'
+
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos set_hostname.yml -e server_hostname=python-testing-server
+
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos update_etc_hosts.yml
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos update_system.yml
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos install_packages.yml
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos disable_firewall.yml
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos disable_selinux.yml
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos ntp.yml
+
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos create_swap.yml -e server_hostname=python-testing-server
+
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos reboot.yml -e wait_port=22
+   OR
+$ for server in `cat servers`;
+do ansible-playbook -i hosts --key-file "~/kube.pem" -u centos reboot_single.yml -e server_hostname=$server -e wait_port=22;
+done
+
+
+
+
+Confirm & Verify:
+=================
+$ ssh -i ~/kube.pem centos@python-testing-server
+
+
+$ hostnamectl
+$ cat /etc/hosts
+$ sudo yum -y update
+$ git
+$ tree
+$ vim i
+$ sudo systemctl status firewalld.service
+$ sestatus
+$ uptime
+$ ntpq -p
+$ ntpstat
+
+
+   Install Python 3.6.
+   ===================
+$ cd ~/git/notes/ansible/ansible_prep_server
+$ ansible-playbook -i hosts --key-file "~/kube.pem" -u centos python3.yml
+
+
+
+   On python-testing-server:
+$ sudo yum grouplist
+   ...
+Installed Groups:
+   Development Tools
+   ...
+
+$ python3.6
+Python 3.6.8 (default, Apr 25 2019, 21:02:35) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-36)] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 

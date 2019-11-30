@@ -1,0 +1,40 @@
+MIME 
+
+   Q: What does MIME stand for?
+
+   Multipurpose Internet Mail Extension
+
+
+   Q: Other names for it?
+
+  - MIME type, media type,   
+     content type
+
+
+   Q: What is it?
+
+  - a two-part identifier composed of a type, a subtype, and optional parameters.
+
+
+   Q: What is it used for?
+
+   - for file formats and format contents transmitted over the Internet like text/html; charset=UTF-8.
+  -  for denoting email message contents and attachments.
+  - Also used with HTTP & HTML.
+
+
+   Q: EXAMPLES?
+
+  - application/javascript
+  - application/json
+  - application/pdf
+  - audio/mpeg3   (.mp3)
+  - text/css
+  - text/html
+  - text/plain
+  - image/gif
+  - image/jpeg
+  - image/png
+  - video/avi
+  - video/mpeg
+  - video/quicktime  (.mov)

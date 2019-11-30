@@ -1,0 +1,179 @@
+Descriptors by Example:
+
+   Classes:
+$ vim testing.py
++++
+class Widget(object):
+    """
+    A class for a widget.
+    """
+
+    copyright = "DMCC, Inc."
+
+
+class Circle(Widget):
+    """
+    A class for a circle.
+    """
+
+    PI = 3.14
+
+    def __init__(self, radius):
+        self.radius = radius
++++
+
+>>> from testing import Circle
+>>> mycircle = Circle(3)
+
+
+   ### Instance Variable
+>>> mycircle.radius
+3
+
+   ### Class Variable
+>>> mycircle.PI
+3.14
+
+   ### Inheritance & MRO
+>>> mycircle.copyright
+'DMCC, Inc'
+
+>>> mycircle.__dict__
+{'radius': 3}
+
+>>> Circle.__dict__
+mappingproxy({..., 'PI': 3.14,...})
+
+>>> type(mycircle).mro()
+[<class 'testing.Circle'>, <class 'testing.Widget'>, <class 'object'>]
+
+>>> Circle.mro()
+[<class 'testing.Circle'>, <class 'testing.Widget'>, <class 'object'>]
+
+
+
+
+
+   Classic OOP Mistake: 
++++
+class Circle(Widget):
+    """
+    A class for a circle.
+    """
+
+    PI = 3.14
+
+    def __init__(self, radius):
+        self.radius = radius
+        self.circumference = 2 * radius * self.PI
++++
+
+   NOTE: The above should be:
+          self.circumference = 2 * self.radius * self.PI
+
+>>> from testing import Circle
+>>> mycircle = Circle(2)
+>>> mycircle.radius
+2
+>>> mycircle.circumference
+12.56
+>>> mycircle.radius = 3
+>>> mycircle.circumference
+12.56
+   ^^^ ERROR ^^^
+
+
+   Fix by using a property decorator.
+      - You write a function with the name of the attribute that 
+         you want to intercept.
+      - We can add getters and setters to our class while 
+         maintaining what looks like simple attribute access.
+
++++
+class Circle(object):
+    """
+    A class for a circle.
+    """
+
+    PI = 3.14
+
+    def __init__(self, radius):
+        self.radius = radius
+
+    @property
+    def circumference(self):
+        return 2 * self.radius * self.PI
++++
+
+>>> from testing import Circle
+>>> mycircle = Circle(2)
+>>> mycircle.radius
+2
+>>> mycircle.circumference
+12.56
+>>> mycircle.radius = 3
+>>> mycircle.circumference
+18.84
+
+
+
+
+   Summary: Accessing an attribute on an object "obj""
+1. The result of the __get__ method of the non-data or data descriptor
+     of the same name attached to the class if it exists.
+
+2. Or the corresponding value in obj.__dict__ if it exists.
+
+3. Or else it falls back to the Class.__dict__ "type(obj).__dict__.
+
+4. Or for each type in the MRO until it finds a match.
+
+5. Note that assignment always creates an entry in obj.__dict__.
+
+6. Unless there was a setter property in which case you're calling a function.
+
+
+
+   What is a data descriptor?
+
+  A descriptor is any object that implements at least one of the methods named
+__get__(), __set__() and __delete__().  
+
+       data descriptor: Both __get__() and __set__().
+   non-data descriptor: Only __get__().
+
+
+   Write Descriptors and apply them as Decorators.
++++
+class LazyProperty(object):
+    def __init__(self, func):
+        self._func = func
+        self.__name__ = func.__name__
+
+    def __get__(self, obj, klass):
+        print("Called  the func.")
+        result = self._func(obj)
+        obj.__dict__[self.__name__] = result
+        return result
+
+
+class MyClass(object):
+    @LazyProperty
+    def x(self):
+        return 23
++++
+
+
+>>> from testing import MyClass
+>>> obj = MyClass()
+>>> obj.__dict__
+{}
+>>> obj.x
+Called  the func.
+23
+>>> obj.__dict__
+{'x': 23}
+>>> obj.x
+23
+>>> obj.__dict__
+{'x': 23}

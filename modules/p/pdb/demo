@@ -1,0 +1,191 @@
+
+pdb defines an interactive source code debugger for Python programs. It supports setting (conditional) breakpoints and single stepping at the source line level, inspection of stack frames, source code listing, and evaluation of arbitrary Python code in the context of any stack frame. It also supports post-mortem debugging and can be called under program control.
+
+
+   *** Postmortem Debugging ***
+# python -m pdb script.py
+
+   *** Start Debugging Here ***
+import pdb
+...
+pdb.set_trace()
+...
+
+   *** Commands **
+l(ist)      = shows where you are in your code.
+n(ext)      = steps to the next line of execution.
+c(ontinue)  = leaves debugger control and executes code normally.
+s(step)     = steps into the next line of execution.
+r(eturn)    = steps to the end of the currently executing function. 
+b(reak)     = set a break point.
+w(here)     = show current execution point.
+
+   *** Help ***
+? OR h OR help
+
+
+
+   Example:
+   ========
+_
+n bubble.py 
+[39, 26, 24, 12, 35, 42, 47, 41, 9, 22, 6, 28, 10, 27, 11, 23, 22, 29, 9]
+
+> /data/python_mods_examples/p/pdb/bubble.py(26)<module>()
+-> bubblesort(lst1)
+(Pdb) ?
+
+Documented commands (type help <topic>):
+========================================
+EOF    bt         cont      enable  jump  pp       run      unt   
+a      c          continue  exit    l     q        s        until 
+alias  cl         d         h       list  quit     step     up    
+args   clear      debug     help    n     r        tbreak   w     
+b      commands   disable   ignore  next  restart  u        whatis
+break  condition  down      j       p     return   unalias  where 
+
+Miscellaneous help topics:
+==========================
+exec  pdb
+
+Undocumented commands:
+======================
+retval  rv
+
+(Pdb) l
+ 21  	
+ 22  	lst1 = [random.randrange(1, 50) for i in range(1,20)]
+ 23  	print(lst1)
+ 24  	raw_input("")
+ 25  	import pdb; pdb.set_trace()
+ 26  ->	bubblesort(lst1)
+ 27  	print(lst1)
+[EOF]
+(Pdb) s
+--Call--
+> /data/python_mods_examples/p/pdb/bubble.py(13)bubblesort()
+-> def bubblesort(l):
+(Pdb) n
+> /data/python_mods_examples/p/pdb/bubble.py(15)bubblesort()
+-> for passesLeft in range(len(l)-1, 0, -1):
+(Pdb) n
+> /data/python_mods_examples/p/pdb/bubble.py(16)bubblesort()
+-> for index in range(passesLeft):
+(Pdb) n
+> /data/python_mods_examples/p/pdb/bubble.py(17)bubblesort()
+-> if l[index] < l[index + 1]:
+(Pdb) l
+ 12  	
+ 13  	def bubblesort(l):
+ 14  	  """Sorts l in place and returns it."""
+ 15  	  for passesLeft in range(len(l)-1, 0, -1):
+ 16  	    for index in range(passesLeft):
+ 17  ->	      if l[index] < l[index + 1]:
+ 18  	        l[index], l[index + 1] = l[index + 1], l[index]
+ 19  	    display_list(l)
+ 20  	  return l
+ 21  	
+ 22  	lst1 = [random.randrange(1, 50) for i in range(1,20)]
+(Pdb) passesLeft
+18
+(Pdb) print(l)
+[39, 26, 24, 12, 35, 42, 47, 41, 9, 22, 6, 28, 10, 27, 11, 23, 22, 29, 9]
+(Pdb) l 22
+ 17  ->	      if l[index] < l[index + 1]:
+ 18  	        l[index], l[index + 1] = l[index + 1], l[index]
+ 19  	    display_list(l)
+ 20  	  return l
+ 21  	
+ 22  	lst1 = [random.randrange(1, 50) for i in range(1,20)]
+ 23  	print(lst1)
+ 24  	raw_input("")
+ 25  	import pdb; pdb.set_trace()
+ 26  	bubblesort(lst1)
+ 27  	print(lst1)
+(Pdb) w
+  /data/python_mods_examples/p/pdb/bubble.py(26)<module>()
+-> bubblesort(lst1)
+> /data/python_mods_examples/p/pdb/bubble.py(17)bubblesort()
+-> if l[index] < l[index + 1]:
+(Pdb) b 19
+Breakpoint 1 at /data/python_mods_examples/p/pdb/bubble.py:19
+(Pdb) l
+[EOF]
+(Pdb) l 19
+ 14  	  """Sorts l in place and returns it."""
+ 15  	  for passesLeft in range(len(l)-1, 0, -1):
+ 16  	    for index in range(passesLeft):
+ 17  ->	      if l[index] < l[index + 1]:
+ 18  	        l[index], l[index + 1] = l[index + 1], l[index]
+ 19 B	    display_list(l)
+ 20  	  return l
+ 21  	
+ 22  	lst1 = [random.randrange(1, 50) for i in range(1,20)]
+ 23  	print(lst1)
+ 24  	raw_input("")
+(Pdb) c
+> /data/python_mods_examples/p/pdb/bubble.py(19)bubblesort()
+-> display_list(l)
+(Pdb) print(l)
+[39, 26, 24, 35, 42, 47, 41, 12, 22, 9, 28, 10, 27, 11, 23, 22, 29, 9, 6]
+(Pdb) c
+
+> /data/python_mods_examples/p/pdb/bubble.py(19)bubblesort()
+-> display_list(l)
+(Pdb) print(l)
+[39, 26, 35, 42, 47, 41, 24, 22, 12, 28, 10, 27, 11, 23, 22, 29, 9, 9, 6]
+(Pdb) r
+l
+> /data/python_mods_examples/p/pdb/bubble.py(19)bubblesort()
+-> display_list(l)
+(Pdb) l
+ 14  	  """Sorts l in place and returns it."""
+ 15  	  for passesLeft in range(len(l)-1, 0, -1):
+ 16  	    for index in range(passesLeft):
+ 17  	      if l[index] < l[index + 1]:
+ 18  	        l[index], l[index + 1] = l[index + 1], l[index]
+ 19 B->	    display_list(l)
+ 20  	  return l
+ 21  	
+ 22  	lst1 = [random.randrange(1, 50) for i in range(1,20)]
+ 23  	print(lst1)
+ 24  	raw_input("")
+(Pdb) c
+
+
+
+******************************************************************************
+**********************************************************************
+************************************************************************************
+**********************************************************************************************
+**********************************************************************************
+****************************************************
+************************************************
+********************************************
+********************************************************
+************************
+******************************************************
+**********************
+**********************************************
+********************************************
+**********************************************************
+********************
+******************
+******************
+************
+
+> /data/python_mods_examples/p/pdb/bubble.py(19)bubblesort()
+-> display_list(l)
+(Pdb) q
+Traceback (most recent call last):
+  File "bubble.py", line 26, in <module>
+    bubblesort(lst1)
+  File "bubble.py", line 19, in bubblesort
+    display_list(l)
+  File "bubble.py", line 19, in bubblesort
+    display_list(l)
+  File "/usr/lib64/python2.7/bdb.py", line 49, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib64/python2.7/bdb.py", line 68, in dispatch_line
+    if self.quitting: raise BdbQuit
+bdb.BdbQuit

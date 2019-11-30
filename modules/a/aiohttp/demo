@@ -1,0 +1,179 @@
+Install Python-3.6.3
+
+Downdload Python-3.6.3.tgz
+# tar -zxvf Python-3.6.3.tgz 
+# cd Python-3.6.3/
+# yum -y install gcc zlib-devel openssl-devel
+# ./configure 
+# make
+# make test
+# make install
+# python3
+
+# pip3.6 install aiohttp
+
+# vim client.py
++++
+import aiohttp
+import asyncio
+import async_timeout
+
+async def fetch(session, url):
+    with async_timeout.timeout(10):
+        async with session.get(url) as response:
+            return await response.text()
+
+async def main():
+    async with aiohttp.ClientSession() as session:
+        html = await fetch(session, 'http://python.org')
+        print(html)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(main())
++++
+
+# python3 client.py > index.html
+
+
+
+# vim server.py
++++
+from aiohttp import web
+
+async def handle(request):
+    name = request.match_info.get('name', "Anonymous")
+    text = "Hello, " + name
+    return web.Response(text=text)
+
+app = web.Application()
+app.router.add_get('/', handle)
+app.router.add_get('/{name}', handle)
+
+web.run_app(app, host='127.0.0.1', port=8080)
++++
+
+# python3 server.py
+======== Running on http://127.0.0.1:8080 ========
+(Press CTRL+C to quit)
+
+
+
+
+
+
+
+
+Other Examples:
+================
+# python3 /data/python_mods_examples/a/aiohttp/server1.py
+# python3 /data/python_mods_examples/a/aiohttp/server2.py
+# python3 /data/python_mods_examples/a/aiohttp/server3.py
+
+   (1)
+# vim downloader1.py
++++
+import aiohttp
+import asyncio
+import async_timeout
+
+async def fetch(session, url):
+    with async_timeout.timeout(10):
+        async with session.get(url) as response:
+            return await response.text()
+
+async def print_page(url):
+    async with aiohttp.ClientSession() as session:
+        html = await fetch(session, url)
+        print(html)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(print_page('http://127.0.01:8081'))
++++
+
+# python3 downloader1.py
+Hello, Anonymous1
+
+   (2) "asyncio.wait" - Takes a list a coroutines and returns a single coroutine that wrap them all.
+# vim downloader2.py
++++
+import aiohttp
+import asyncio
+import async_timeout
+
+async def fetch(session, url):
+    with async_timeout.timeout(10):
+        async with session.get(url) as response:
+            return await response.text()
+
+async def print_page(url):
+    async with aiohttp.ClientSession() as session:
+        html = await fetch(session, url)
+        print(html)
+
+loop = asyncio.get_event_loop()
+loop.run_until_complete(asyncio.wait([print_page('http://127.0.01:8081'),
+                                      print_page('http://127.0.01:8082'),
+                                      print_page('http://127.0.01:8083')]))
++++
+
+# python3 downloader2.py 
+Hello, Anonymous3
+Hello, Anonymous2
+Hello, Anonymous1
+
+
+   (3) Download and save multiple files.
+  Place files on web server.
+/var/www/html/mp3/Meditation1.mp3
+/var/www/html/mp3/Meditation2.mp3
+/var/www/html/mp3/Meditation3.mp3
+
+http://127.0.0.1/mp3/
+
+
+   *** asyncio script to download multiple files. ***
+# vim downloader3.py
++++
+import asyncio
+import aiohttp
+
+# get content and write it to file
+def write_to_file(filename, content):
+  with open(filename, 'wb') as f:
+    f.write(content) 
+
+@asyncio.coroutine
+def download_file(url):
+  content = yield from asyncio.async(get(url))
+  basepath, filename = os.path.split(url)
+
+  write_to_file(filename, content)
+
+images = [ 'http://127.0.0.1/mp3/Meditation1.mp3', 'http://127.0.0.1/mp3/Meditation2.mp3', 'http://127.0.0.1/mp3/Meditation3.mp3' ]
+
+coroutines = [download_file(url) for url in images]
+loop = asyncio.get_event_loop()
+loop.run_until_complete(asyncio.wait(coroutines))
+loop.close()
++++
+
+# python3 downloader3.py
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

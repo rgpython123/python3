@@ -1,0 +1,1875 @@
+           <strong>
+            Let’s begin answering the fundamental-level Python interview questions.
+           </strong>
+          </p>
+          <h3>
+           Q-1: What is Python, what are the benefits of using it, and what do you understand of PEP 8?
+          </h3>
+          <p>
+           Python is one of the most successful interpreted languages. When you write a Python script, it doesn’t need to get compiled before execution. Few other interpreted languages are PHP and Javascript.
+          </p>
+          <h4>
+           Benefits of Python Programming
+          </h4>
+          <ul>
+           <li>
+            Python is a dynamic-typed language. It means that you don’t need to mention the data type of variables during their declaration. It allows to set variables like var1=101 and var2 =” You are an engineer.” without any error.
+           </li>
+           <li>
+            Python supports object orientated programming as you can define classes along with the composition and inheritance. It doesn’t use access specifiers like public or private).
+           </li>
+           <li>
+            Functions in Python are like first-class objects. It suggests you can assign them to variables, return from other methods and pass as arguments.
+           </li>
+           <li>
+            Developing using Python is quick but running it is often slower than compiled languages. Luckily, Python enables to include the “C” language extensions so you can optimize your scripts.
+           </li>
+           <li>
+            Python has several usages like web-based applications, test automation, data modeling, big data analytics and much more. Alternatively, you can utilize it as a “glue” layer to work with other languages.
+           </li>
+          </ul>
+          <h4>
+           PEP 8.
+          </h4>
+          <p>
+           PEP 8 is the latest Python coding standard, a set of coding recommendations. It guides to deliver more readable Python code.
+          </p>
+          <h3>
+           <a id="q2">
+           </a>
+           Q-2: What is the output of the following Python code fragment? Justify your answer.
+          </h3>
+          <pre class="lang:python decode:true">def extendList(val, list=[]):
+    list.append(val)
+    return list
+
+list1 = extendList(10)
+list2 = extendList(123,[])
+list3 = extendList('a')
+
+print "list1 = %s" % list1
+print "list2 = %s" % list2
+print "list3 = %s" % list3</pre>
+          <p>
+           The result of the above Python code snippet is:
+          </p>
+          <pre class="lang:python decode:true">list1 = [10, 'a']
+list2 = [123]
+list3 = [10, 'a']</pre>
+          <p>
+           You may erroneously expect list1 to be equal to [10] and list3 to match with [‘a’], thinking that the list argument will initialize to its default value of [] every time there is a call to the extendList.
+          </p>
+          <p>
+           However, the flow is like that a new list gets created once after the function is defined. And the same get used whenever someone calls the extendList method without a list argument. It works like this because the calculation of expressions (in default arguments) occurs at the time of function definition, not during its invocation.
+          </p>
+          <p>
+           The list1 and list3 are hence operating on the same default list, whereas list2 is running on a separate object that it has created on its own (by passing an empty list as the value of the list parameter).
+          </p>
+          <p>
+           The definition of the extendList function can get changed in the following manner.
+          </p>
+          <pre class="lang:python decode:true">def extendList(val, list=None):
+  if list is None:
+    list = []
+  list.append(val)
+  return list</pre>
+          <p>
+           With this revised implementation, the output would be:
+          </p>
+          <pre class="lang:python decode:true">list1 = [10]
+list2 = [123]
+list3 = ['a']</pre>
+          <h3>
+           <a id="q3">
+           </a>
+           Q-3: What is the statement that can be used in Python if the program requires no action but requires it syntactically?
+          </h3>
+          <p>
+           The pass statement is a null operation. Nothing happens when it executes. You should use “pass” keyword in lowercase. If you write “Pass,” you’ll face an error like “NameError: name Pass is not defined.” Python statements are case sensitive.
+          </p>
+          <pre class="lang:python decode:true">letter = "hai sethuraman"
+for i in letter:
+    if i == "a":
+        pass
+        print("pass statement is execute ..............")
+    else:
+        print(i)
+</pre>
+          <h3>
+           <a id="q4">
+           </a>
+           Q-4: What’s the process to get the home directory using ‘~’ in Python?
+          </h3>
+          <p>
+           You need to import the os module, and then just a single line would do the rest.
+          </p>
+          <pre class="lang:python decode:true">import os
+print (os.path.expanduser('~'))</pre>
+          <p>
+           <strong>
+            Output:
+           </strong>
+          </p>
+          <pre class="lang:python decode:true">/home/runner</pre>
+          <h3>
+           <a id="q5">
+           </a>
+           Q-5: What are the built-in types available in Python?
+          </h3>
+          <p>
+           Here is the list of most commonly used built-in types that Python supports:
+          </p>
+          <ul>
+           <li>
+            <strong>
+             Immutable built-in datatypes of Python
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              Numbers
+             </li>
+             <li>
+              Strings
+             </li>
+             <li>
+              Tuples
+             </li>
+            </ul>
+           </li>
+          </ul>
+          <ul>
+           <li>
+            <strong>
+             Mutable built-in datatypes of Python
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              List
+             </li>
+             <li>
+              Dictionaries
+             </li>
+             <li>
+              Sets
+             </li>
+            </ul>
+           </li>
+          </ul>
+          <h3>
+           <a id="q6">
+           </a>
+           Q-6: How to find bugs or perform static analysis in a Python application?
+          </h3>
+          <ul>
+           <li>
+            You can use PyChecker, which is a static analyzer. It identifies the bugs in Python project and also reveals the style and complexity related bugs.
+           </li>
+           <li>
+            Another tool is Pylint, which checks whether the Python module satisfies the coding standard.
+           </li>
+          </ul>
+          <h3>
+           <a id="q7">
+           </a>
+           Q-7: When is the Python decorator used?
+          </h3>
+          <p>
+           Python decorator is a relative change that you do in Python syntax to adjust the functions quickly.
+          </p>
+          <h3>
+           <a id="q8">
+           </a>
+           Q-8: What is the principal difference between a list and the tuple?
+          </h3>
+          <h4>
+           List vs. Tuple.
+          </h4>
+          <p>
+           The principal difference between a list and the tuple is that the former is mutable while the tuple is not.
+          </p>
+          <p>
+           A tuple is allowed to be hashed, for example, using it as a key for dictionaries.
+          </p>
+          <div class="code-block code-block-3" style="margin: 8px auto; text-align: center; display: block; clear: both;">
+           <script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
+           </script>
+           <ins class="adsbygoogle" data-ad-client="ca-pub-6913998153906558" data-ad-slot="8122256825" style="display: inline-block; width: 336px; height: 280px;">
+           </ins>
+           <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+           </script>
+          </div>
+          <h3>
+           <a id="q9">
+           </a>
+           Q-9: How does Python handle memory management?
+          </h3>
+          <ul>
+           <li>
+            Python uses private heaps to maintain its memory. So the heap holds all the Python objects and the data structures. This area is only accessible to the Python interpreter; programmers can’t use it.
+           </li>
+           <li>
+            And it’s the Python memory manager that handles the Private heap. It does the required allocation of the memory for Python objects.
+           </li>
+           <li>
+            Python employs a built-in garbage collector, which salvages all the unused memory and offloads it to the heap space.
+           </li>
+          </ul>
+          <h3>
+           <a id="q10">
+           </a>
+           Q-10: What are the principal differences between the lambda and def?
+          </h3>
+          <h4>
+           Lambda vs. def.
+          </h4>
+          <ul>
+           <li>
+            Def can hold multiple expressions while lambda is a uni-expression function.
+           </li>
+           <li>
+            Def generates a function and designates a name to call it later. Lambda forms a function object and returns it.
+           </li>
+           <li>
+            Def can have a return statement. Lambda can’t have return statements.
+           </li>
+           <li>
+            Lambda supports to get used inside a list and dictionary.
+           </li>
+          </ul>
+          <div class="message_box announce">
+           <p>
+            💡
+            <strong>
+             <span style="font-size: 10pt;">
+              Also Check.
+             </span>
+            </strong>
+           </p>
+           <p>
+            <strong>
+             <span style="font-size: 10pt;">
+              <a href="/python-programming-quiz-for-beginners-part-1/" rel="noopener noreferrer" target="_blank">
+               Python Programming Quiz for Beginners
+              </a>
+             </span>
+            </strong>
+           </p>
+          </div>
+          <h3>
+           <a id="q11">
+           </a>
+           Q-11: Write a reg expression that confirms an email id using the python reg expression module “re”?
+          </h3>
+          <p>
+           Python has a regular expression module “re.”
+          </p>
+          <p>
+           Check out the
+           <strong>
+            “re”
+           </strong>
+           expression that can check the email id for .com and .co.in subdomain.
+          </p>
+          <pre class="lang:python decode:true">import re
+print(re.search(r"[0-9a-zA-Z.]+@[a-zA-Z]+\.(com|co\.in)$","micheal.pages@mp.com"))</pre>
+          <h3>
+           <a id="q12">
+           </a>
+           Q-12: What do you think is the output of the following code fragment? Is there any error in the code?
+          </h3>
+          <pre class="lang:python decode:true">list = ['a', 'b', 'c', 'd', 'e']
+print (list[10:])</pre>
+          <p>
+           The result of the above lines of code is []. There won’t be any error like an IndexError.
+          </p>
+          <p>
+           You should know that trying to fetch a member from the list using an index that exceeds the member count (for example, attempting to access list[10] as given in the question) would yield an IndexError. By the way, retrieving only a slice at the starting index that surpasses the no. of items in the list won’t result in an IndexError. It will just return an empty list.
+          </p>
+          <h3>
+           <a id="q13">
+           </a>
+           Q-13: Is there a switch or case statement in Python? If not then what is the reason for the same?
+          </h3>
+          <p>
+           No, Python does not have a Switch statement, but you can write a Switch function and then use it.
+          </p>
+          <h3>
+           <a id="q14">
+           </a>
+           Q-14: What is a built-in function that Python uses to iterate over a number sequence?
+          </h3>
+          <p>
+           Range() generates a list of numbers, which is used to iterate over for loops.
+          </p>
+          <pre class="lang:python decode:true">for i in range(5):
+    print(i)</pre>
+          <p>
+           The range() function accompanies two sets of parameters.
+          </p>
+          <ul>
+           <li>
+            <strong>
+             range(stop)
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              stop: It is the no. of integers to generate and starts from zero. eg. range(3) == [0, 1, 2].
+             </li>
+            </ul>
+           </li>
+           <li>
+            <strong>
+             range([start], stop[, step])
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              Start: It is the starting no. of the sequence.
+             </li>
+             <li>
+              Stop: It specifies the upper limit of the sequence.
+             </li>
+             <li>
+              Step: It is the incrementing factor for generating the sequence.
+             </li>
+            </ul>
+           </li>
+           <li>
+            <strong>
+             Points to note:
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              Only integer arguments are allowed.
+             </li>
+             <li>
+              Parameters can be positive or negative.
+             </li>
+             <li>
+              The
+              <strong>
+               range()
+              </strong>
+              function in Python starts from the zeroth index.
+             </li>
+            </ul>
+           </li>
+          </ul>
+          <h3>
+           <a id="q15">
+           </a>
+           Q-15: What are the optional statements possible inside a try-except block in Python?
+          </h3>
+          <p>
+           There are two optional clauses you can use in the
+           <strong>
+            try-except
+           </strong>
+           block.
+          </p>
+          <ul>
+           <li>
+            The “
+            <strong>
+             else”
+            </strong>
+            clause
+            <ul style="list-style-type: square;">
+             <li>
+              It is useful if you want to run a piece of code when the try block doesn’t create an exception.
+             </li>
+            </ul>
+           </li>
+           <li>
+            The
+            <strong>
+             “finally”
+            </strong>
+            clause
+            <ul style="list-style-type: square;">
+             <li>
+              It is useful when you want to execute some steps which run, irrespective of whether there occurs an exception or not.
+             </li>
+            </ul>
+           </li>
+          </ul>
+          <h3>
+           Q-16: What is a string in Python?
+          </h3>
+          <p>
+           A string in Python is a sequence of alpha-numeric characters. They are immutable objects. It means that they don’t allow modification once they get assigned a value. Python provides several methods, such as join(), replace(), or split() to alter strings. But none of these change the original object.
+          </p>
+          <h3>
+           Q-17: What is slicing in Python?
+          </h3>
+          <p>
+           Slicing is a string operation for extracting a part of the string, or some part of a list. In Python, a string (say text) begins at index 0, and the nth character stores at position text[n-1]. Python can also perform reverse indexing, i.e., in the backward direction, with the help of negative numbers. In Python, the slice() is also a constructor function which generates a slice object. The result is a set of indices mentioned by range(start, stop, step). The slice() method allows three parameters. 1. start – starting number for the slicing to begin. 2. stop – the number which indicates the end of slicing. 3. step – the value to increment after each index (default = 1).
+          </p>
+          <h3>
+           Q-18: What is %s in Python?
+          </h3>
+          <p>
+           Python has support for formatting any value into a string. It may contain quite complex expressions.
+          </p>
+          <p>
+           One of the common usages is to push values into a string with the %s format specifier. The formatting operation in Python has the comparable syntax as the C function printf() has.
+          </p>
+          <h3>
+           Q-19: Is a string immutable or mutable in Python?
+          </h3>
+          <p>
+           Python strings are indeed immutable.
+          </p>
+          <p>
+           Let’s take an example. We have an “str” variable holding a string value. We can’t mutate the container, i.e., the string, but can modify what it contains that means the value of the variable.
+          </p>
+          <h3>
+           Q-20: What is the index in Python?
+          </h3>
+          <p>
+           An index is an integer data type which denotes a position within an ordered list or a string.
+          </p>
+          <p>
+           In Python, strings are also lists of characters. We can access them using the index which begins from zero and goes to the length minus one.
+          </p>
+          <p>
+           For example, in the string “Program,” the indexing happens like this:
+          </p>
+          <pre>Program 0 1 2 3 4 5</pre>
+          <h3>
+           Q-21: What is Docstring in Python?
+          </h3>
+          <p>
+           A docstring is a unique text that happens to be the first statement in the following Python constructs:
+          </p>
+          <p>
+           Module, Function, Class, or Method definition.
+          </p>
+          <p>
+           A docstring gets added to the __doc__ attribute of the string object.
+          </p>
+          <p>
+           Now, read some of the Python interview questions on functions.
+          </p>
+          <h3>
+           Q-22: What is a function in Python programming?
+          </h3>
+          <p>
+           A function is an object which represents a block of code and is a reusable entity. It brings modularity to a program and a higher degree of code reusability.
+          </p>
+          <p>
+           Python has given us many built-in functions such as print() and provides the ability to create user-defined functions.
+          </p>
+          <h3>
+           Q-23: How many basic types of functions are available in Python?
+          </h3>
+          <p>
+           Python gives us two basic types of functions.
+          </p>
+          <p>
+           1. Built-in, and
+          </p>
+          <p>
+           2. User-defined.
+          </p>
+          <p>
+           The built-in functions happen to be part of the Python language. Some of these are print(), dir(), len(), and abs() etc.
+          </p>
+          <h3>
+           Q-24: How do we write a function in Python?
+          </h3>
+          <p>
+           We can create a Python function in the following manner.
+          </p>
+          <p>
+           Step-1: to begin the function, start writing with the keyword def and then mention the function name.
+          </p>
+          <p>
+           Step-2: We can now pass the arguments and enclose them using the parentheses. A colon, in the end, marks the end of the function header.
+          </p>
+          <p>
+           Step-3: After pressing an enter, we can add the desired Python statements for execution.
+          </p>
+          <h3>
+           Q-25: What is a function call or a callable object in Python?
+          </h3>
+          <p>
+           A function in Python gets treated as a callable object. It can allow some arguments and also return a value or multiple values in the form of a tuple. Apart from the function, Python has other constructs, such as classes or the class instances which fits in the same category.
+          </p>
+          <h3>
+           Q-26: What is the return keyword used for in Python?
+          </h3>
+          <p>
+           The purpose of a function is to receive the inputs and return some output.
+          </p>
+          <p>
+           The return is a Python statement which we can use in a function for sending a value back to its caller.
+          </p>
+          <h3>
+           Q-27: What is “Call by Value” in Python?
+          </h3>
+          <p>
+           In call-by-value, the argument whether an expression or a value gets bound to the respective variable in the function.
+          </p>
+          <p>
+           Python will treat that variable as local in the function-level scope. Any changes made to that variable will remain local and will not reflect outside the function.
+          </p>
+          <h3>
+           Q-28: What is “Call by Reference” in Python?
+          </h3>
+          <p>
+           We use both “call-by-reference” and “pass-by-reference” interchangeably. When we pass an argument by reference, then it is available as an implicit reference to the function, rather than a simple copy. In such a case, any modification to the argument will also be visible to the caller.
+          </p>
+          <p>
+           This scheme also has the advantage of bringing more time and space efficiency because it leaves the need for creating local copies.
+          </p>
+          <p>
+           On the contrary, the disadvantage could be that a variable can get changed accidentally during a function call. Hence, the programmers need to handle in the code to avoid such uncertainty.
+          </p>
+          <h3>
+           Q-29: What is the return value of the trunc() function?
+          </h3>
+          <p>
+           The Python trunc() function performs a mathematical operation to remove the decimal values from a particular expression and provides an integer value as its output.
+          </p>
+          <h3>
+           Q-30: Is it mandatory for a Python function to return a value?
+          </h3>
+          <p>
+           It is not at all necessary for a function to return any value. However, if needed, we can use None as a return value.
+          </p>
+          <h3>
+           Q-31: What does the continue do in Python?
+          </h3>
+          <p>
+           The continue is a jump statement in Python which moves the control to execute the next iteration in a loop leaving all the remaining instructions in the block unexecuted.
+          </p>
+          <p>
+           The continue statement is applicable for both the “while” and “for” loops.
+          </p>
+          <h3>
+           Q-32: What is the purpose of id() function in Python?
+          </h3>
+          <p>
+           The id() is one of the built-in functions in Python.
+          </p>
+          <pre>Signature: id(object)</pre>
+          <p>
+           It accepts one parameter and returns a unique identifier associated with the input object.
+          </p>
+          <h3>
+           Q-33: What does the *args do in Python?
+          </h3>
+          <p>
+           We use *args as a parameter in the function header. It gives us the ability to pass N (variable) number of arguments.
+          </p>
+          <p>
+           Please note that this type of argument syntax doesn’t allow passing a named argument to the function.
+          </p>
+          <p>
+           Example of using the *args:
+          </p>
+          <pre># Python code to demonstrate 
+# *args for dynamic arguments 
+def fn(*argList):  
+    for argx in argList:  
+        print (argx) 
+    
+fn('I', 'am', 'Learning', 'Python')</pre>
+          <p>
+           The output:
+          </p>
+          <pre>I
+am
+Learning
+Python</pre>
+          <h3>
+           Q-34: What does the **kwargs do in Python?
+          </h3>
+          <p>
+           We can also use the **kwargs syntax in a Python function declaration. It let us pass N (variable) number of arguments which can be named or keyworded.
+          </p>
+          <p>
+           Example of using the **kwargs:
+          </p>
+          <pre># Python code to demonstrate 
+# **kwargs for dynamic + named arguments 
+def fn(**kwargs):  
+    for emp, age in kwargs.items(): 
+        print ("%s's age is %s." %(emp, age)) 
+    
+fn(John=25, Kalley=22, Tom=32)</pre>
+          <p>
+           The output:
+          </p>
+          <pre>John's age is 25.
+Kalley's age is 22.
+Tom's age is 32.</pre>
+          <h3>
+           Q-35: Does Python have a Main() method?
+          </h3>
+          <p>
+           The main() is the entry point function which happens to be called first in most programming languages.
+          </p>
+          <p>
+           Since Python is interpreter-based, so it sequentially executes the lines of the code one-by-one.
+          </p>
+          <p>
+           Python also does have a Main() method. But it gets executed whenever we run our Python script either by directly clicking it or starts it from the command line.
+          </p>
+          <p>
+           We can also override the Python default main() function using the Python if statement. Please see the below code.
+          </p>
+          <pre>print("Welcome")
+print("__name__ contains: ", __name__)
+def main():
+    print("Testing the main function")
+if __name__ == '__main__':
+    main()</pre>
+          <p>
+           The output:
+          </p>
+          <pre>Welcome
+__name__ contains:  __main__
+Testing the main function</pre>
+          <h3>
+           Q-36: What does the __ Name __ do in Python?
+          </h3>
+          <p>
+           The __name__ is a unique variable. Since Python doesn’t expose the main() function, so when its interpreter gets to run the script, it first executes the code which is at level 0 indentation.
+          </p>
+          <p>
+           To see whether the main() gets called, we can use the __name__ variable in an if clause compares with the value “__main__.”
+          </p>
+          <h3>
+           Q-37: What is the purpose of “end” in Python?
+          </h3>
+          <p>
+           Python’s print() function always prints a newline in the end. The print() function accepts an optional parameter known as the ‘end.’ Its value is ‘\n’ by default. We can change the end character in a print statement with the value of our choice using this parameter.
+          </p>
+          <pre># Example: Print a  instead of the new line in the end.
+print("Let's learn" , end = ' ')  
+print("Python") 
+
+# Printing a dot in the end.
+print("Learn to code from techbeamers" , end = '.')  
+print("com", end = ' ')</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Let's learn Python
+Learn to code from techbeamers.com</pre>
+          <h3>
+           Q-38: When should you use the “break” in Python?
+          </h3>
+          <p>
+           Python provides a break statement to exit from a loop. Whenever the break hits in the code, the control of the program immediately exits from the body of the loop.
+          </p>
+          <p>
+           The break statement in a nested loop causes the control to exit from the inner iterative block.
+          </p>
+          <h3>
+           Q-39: What is the difference between pass and continue in Python?
+          </h3>
+          <p>
+           The continue statement makes the loop to resume from the next iteration.
+          </p>
+          <p>
+           On the contrary, the pass statement instructs to do nothing, and the remainder of the code executes as usual.
+          </p>
+          <h3>
+           Q-40: What does the len() function do in Python?
+          </h3>
+          <p>
+           In Python, the len() is a primary string function. It determines the length of an input string.
+          </p>
+          <pre>&gt;&gt;&gt; some_string = 'techbeamers'
+&gt;&gt;&gt; len(some_string)
+11</pre>
+          <h3>
+           Q-41: What does the chr() function do in Python?
+          </h3>
+          <p>
+           The chr() function got re-added in Python 3.2. In version 3.0, it got removed.
+          </p>
+          <p>
+           It returns the string denoting a character whose Unicode code point is an integer.
+          </p>
+          <p>
+           For example, the chr(122) returns the string ‘z’ whereas the chr(1212) returns the string ‘Ҽ’.
+          </p>
+          <h3>
+           Q-42: What does the ord() function do in Python?
+          </h3>
+          <p>
+           The ord(char) in Python takes a string of size one and returns an integer denoting the Unicode code format of the character in case of a Unicode type object, or the value of the byte if the argument is of 8-bit string type.
+          </p>
+          <pre>&gt;&gt;&gt; ord("z")
+122</pre>
+          <h3>
+           Q-43: What is Rstrip() in Python?
+          </h3>
+          <p>
+           Python provides the rstrip() method which duplicates the string but leaves out the whitespace characters from the end.
+          </p>
+          <p>
+           The rstrip() escapes the characters from the right end based on the argument value, i.e., a string mentioning the group of characters to get excluded.
+          </p>
+          <p>
+           The signature of the rstrip() is:
+          </p>
+          <pre>str.rstrip([char sequence/pre&gt;</pre>
+          <pre>#Example
+test_str = 'Programming    '
+# The trailing whitespaces are excluded
+print(test_str.rstrip())</pre>
+          <h3>
+           Q-44: What is whitespace in Python?
+          </h3>
+          <p>
+           Whitespace represents the characters that we use for spacing and separation.
+          </p>
+          <p>
+           They possess an “empty” representation. In Python, it could be a tab or space.
+          </p>
+          <h3>
+           Q-45: What is isalpha() in Python?
+          </h3>
+          <p>
+           Python provides this built-in isalpha() function for the string handling purpose.
+          </p>
+          <p>
+           It returns True if all characters in the string are of alphabet type, else it returns False.
+          </p>
+          <h3>
+           Q-46: How do you use the split() function in Python?
+          </h3>
+          <p>
+           Python’s split() function works on strings to cut a large piece into smaller chunks, or sub-strings. We can specify a separator to start splitting, or it uses the space as one by default.
+          </p>
+          <pre>#Example
+str = 'pdf csv json'
+print(str.split(" "))
+print(str.split())</pre>
+          <p>
+           The output:
+          </p>
+          <pre>['pdf', 'csv', 'json']
+['pdf', 'csv', 'json']</pre>
+          <h3>
+           Q-47: What does the join method do in Python?
+          </h3>
+          <p>
+           Python provides the join() method which works on strings, lists, and tuples. It combines them and returns a united value.
+          </p>
+          <h3>
+           Q-48: What does the Title() method do in Python?
+          </h3>
+          <p>
+           Python provides the title() method to convert the first letter in each word to capital format while the rest turns to Lowercase.
+          </p>
+          <pre>#Example
+str = 'lEaRn pYtHoN'
+print(str.title())</pre>
+          <p>
+           The output:
+          </p>
+          <pre>Learn Python</pre>
+          <p>
+           Now, check out some general purpose Python interview questions.
+          </p>
+          <h3>
+           Q-49: What makes the CPython different from Python?
+          </h3>
+          <p>
+           CPython has its core developed in C. The prefix ‘C’ represents this fact. It runs an interpreter loop used for translating the Python-ish code to C language.
+          </p>
+          <h3>
+           Q-50: Which package is the fastest form of Python?
+          </h3>
+          <p>
+           PyPy provides maximum compatibility while utilizing CPython implementation for improving its performance.
+          </p>
+          <p>
+           The tests confirmed that PyPy is nearly five times faster than the CPython. It currently supports Python 2.7.
+          </p>
+          <h3>
+           Q-51: What is GIL in Python language?
+          </h3>
+          <p>
+           Python supports GIL (the global interpreter lock) which is a mutex used to secure access to Python objects, synchronizing multiple threads from running the Python bytecodes at the same time.
+          </p>
+          <h3>
+           Q-52: How is Python thread safe?
+          </h3>
+          <p>
+           Python ensures safe access to threads. It uses the GIL mutex to set synchronization. If a thread loses the GIL lock at any time, then you have to make the code thread-safe.
+          </p>
+          <p>
+           For example, many of the Python operations execute as atomic such as calling the sort() method on a list.
+          </p>
+          <h3>
+           Q-53: How does Python manage the memory?
+          </h3>
+          <p>
+           Python implements a heap manager internally which holds all of its objects and data structures.
+          </p>
+          <p>
+           This heap manager does the allocation/de-allocation of heap space for objects.
+          </p>
+          <h3>
+           Q-54: What is a tuple in Python?
+          </h3>
+          <p>
+           A tuple is a collection type data structure in Python which is immutable.
+          </p>
+          <p>
+           They are similar to sequences, just like the lists. However, There are some differences between a tuple and list; the former doesn’t allow modifications whereas the list does.
+          </p>
+          <p>
+           Also, the tuples use parentheses for enclosing, but the lists have square brackets in their syntax.
+          </p>
+          <h3>
+           Q-55: What is a dictionary in Python programming?
+          </h3>
+          <p>
+           A dictionary is a data structure known as an associative array in Python which stores a collection of objects.
+          </p>
+          <p>
+           The collection is a set of keys having a single associated value. We can call it a hash, a map, or a hashmap as it gets called in other programming languages.
+          </p>
+          <h3>
+           Q-56: What is the set object in Python?
+          </h3>
+          <p>
+           Sets are unordered collection objects in Python. They store unique and immutable objects. Python has its implementation derived from mathematics.
+          </p>
+          <h3>
+           Q-57: What is the use of the dictionary in Python?
+          </h3>
+          <p>
+           A dictionary has a group of objects (the keys) map to another group of objects (the values). A Python dictionary represents a mapping of unique Keys to Values.
+          </p>
+          <p>
+           They are mutable and hence will not change. The values associated with the keys can be of any Python types.
+          </p>
+          <h3>
+           Q-58: Is Python list a linked list?
+          </h3>
+          <p>
+           A Python list is a variable-length array which is different from C-style linked lists.
+          </p>
+          <p>
+           Internally, it has a contiguous array for referencing to other objects and stores a pointer to the array variable and its length in the list head structure.
+          </p>
+          <p>
+           Here are some Python interview questions on classes and objects.
+          </p>
+          <h3>
+           Q-59: What is Class in Python?
+          </h3>
+          <p>
+           Python supports object-oriented programming and provides almost all OOP features to use in programs.
+          </p>
+          <p>
+           A Python class is a blueprint for creating the objects. It defines member variables and gets their behavior associated with them.
+          </p>
+          <p>
+           We can make it by using the keyword “class.” An object gets created from the constructor. This object represents the instance of the class.
+          </p>
+          <p>
+           In Python, we generate classes and instances in the following way.
+          </p>
+          <pre>&gt;&gt;&gt;class Human:  # Create the class
+...     pass
+&gt;&gt;&gt;man = Human()  # Create the instance
+&gt;&gt;&gt;print(man)
+&lt;__main__.Human object at 0x0000000003559E10&gt;</pre>
+          <h3>
+           Q-60: What are Attributes and Methods in a Python class?
+          </h3>
+          <p>
+           A class is useless if it has not defined any functionality. We can do so by adding attributes. They work as containers for data and functions. We can add an attribute directly specifying inside the class body.
+          </p>
+          <pre>&gt;&gt;&gt; class Human:
+...     profession = "programmer" # specify the attribute 'profession' of the class
+&gt;&gt;&gt; man = Human()
+&gt;&gt;&gt; print(man.profession)
+programmer</pre>
+          <p>
+           After we added the attributes, we can go on to define the functions. Generally, we call them methods. In the method signature, we always have to provide the first argument with a self-keyword.
+          </p>
+          <pre>&gt;&gt;&gt; class Human:
+    profession = "programmer"
+    def set_profession(self, new_profession):
+        self.profession = new_profession      
+&gt;&gt;&gt; man = Human()
+&gt;&gt;&gt; man.set_profession("Manager")
+&gt;&gt;&gt; print(man.profession)
+Manager</pre>
+          <h3>
+           Q-61: How to assign values for the Class attributes at runtime?
+          </h3>
+          <p>
+           We can specify the values for the attributes at runtime. We need to add an init method and pass input to object constructor. See the following example demonstrating this.
+          </p>
+          <pre>&gt;&gt;&gt; class Human:
+    def __init__(self, profession):
+        self.profession = profession
+    def set_profession(self, new_profession):
+        self.profession = new_profession
+
+&gt;&gt;&gt; man = Human("Manager")
+&gt;&gt;&gt; print(man.profession)
+Manager</pre>
+          <h3>
+           Q-62: What is Inheritance in Python programming?
+          </h3>
+          <p>
+           Inheritance is an OOP mechanism which allows an object to access its parent class features. It carries forward the base class functionality to the child.
+          </p>
+          <p>
+           <img alt="Python Interview Questions - Inheritance" class="aligncenter size-full wp-image-7088" height="171" sizes="(max-width: 354px) 100vw, 354px" src="https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Inheritance.png" srcset="https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Inheritance.png 354w, https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Inheritance-300x145.png 300w" width="354"/>
+          </p>
+          <p>
+           We do it intentionally to abstract away the similar code in different classes.
+          </p>
+          <p>
+           The common code rests with the base class, and the child class objects can access it via inheritance. Check out the below example.
+          </p>
+          <pre>class PC: # Base class
+    processor = "Xeon" # Common attribute
+    def set_processor(self, new_processor):
+        processor = new_processor
+
+class Desktop(PC): # Derived class
+    os = "Mac OS High Sierra" # Personalized attribute
+    ram = "32 GB"
+
+class Laptop(PC): # Derived class
+    os = "Windows 10 Pro 64" # Personalized attribute
+    ram = "16 GB"
+
+desk = Desktop()
+print(desk.processor, desk.os, desk.ram)
+
+lap = Laptop()
+print(lap.processor, lap.os, lap.ram)</pre>
+          <p>
+           The output:
+          </p>
+          <pre>Xeon Mac OS High Sierra 32 GB
+Xeon Windows 10 Pro 64 16 GB</pre>
+          <h3>
+           Q-63: What is Composition in Python?
+          </h3>
+          <p>
+           The composition is also a type of inheritance in Python. It intends to inherit from the base class but a little differently, i.e., by using an instance variable of the base class acting as a member of the derived class.
+          </p>
+          <p>
+           See the below diagram.
+          </p>
+          <p>
+           <img alt="Python Interview Questions - Composition" class="aligncenter size-full wp-image-7089" height="171" sizes="(max-width: 354px) 100vw, 354px" src="https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Composition.png" srcset="https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Composition.png 354w, https://cdn.techbeamers.com/wp-content/uploads/2016/02/Python-Interview-Questions-Composition-300x145.png 300w" width="354"/>
+          </p>
+          <p>
+           To demonstrate composition, we need to instantiate other objects in the class and then make use of those instances.
+          </p>
+          <pre>class PC: # Base class
+    processor = "Xeon" # Common attribute
+    def __init__(self, processor, ram):
+        self.processor = processor
+        self.ram = ram
+
+    def set_processor(self, new_processor):
+        processor = new_processor
+
+    def get_PC(self):
+        return "%s cpu &amp; %s ram" % (self.processor, self.ram)
+
+class Tablet():
+    make = "Intel"
+    def __init__(self, processor, ram, make):
+        self.PC = PC(processor, ram) # Composition
+        self.make = make
+
+    def get_Tablet(self):
+        return "Tablet with %s CPU &amp; %s ram by %s" % (self.PC.processor, self.PC.ram, self.make)
+
+if __name__ == "__main__":
+    tab = Tablet("i7", "16 GB", "Intel")
+    print(tab.get_Tablet())</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Tablet with i7 CPU &amp; 16 GB ram by Intel</pre>
+          <h3>
+           Q-64: What are Errors and Exceptions in Python programs?
+          </h3>
+          <p>
+           Errors are coding issues in a program which may cause it to exit abnormally.
+          </p>
+          <p>
+           On the contrary, exceptions happen due to the occurrence of an external event which interrupts the normal flow of the program.
+          </p>
+          <h3>
+           Q-65: How do you handle exceptions with Try/Except/Finally in Python?
+          </h3>
+          <p>
+           Python lay down Try, Except, Finally constructs to handle errors as well as Exceptions. We enclose the unsafe code indented under the try block. And we can keep our fall-back code inside the except block. Any instructions intended for execution last should come under the finally block.
+          </p>
+          <pre>try:
+    print("Executing code in the try block")
+    print(exception)
+except:
+    print("Entering in the except block")
+finally:
+    print("Reached to the final block")</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Executing code in the try block
+Entering in the except block
+Reached to the final block</pre>
+          <h3>
+           Q-66: How do you raise exceptions for a predefined condition in Python?
+          </h3>
+          <p>
+           We can raise an exception based on some condition.
+          </p>
+          <p>
+           For example, if we want the user to enter only odd numbers, else will raise an exception.
+          </p>
+          <pre># Example - Raise an exception
+while True:
+    try:
+        value = int(input("Enter an odd number- "))
+        if value%2 == 0:
+            raise ValueError("Exited due to invalid input!!!")
+        else:
+            print("Value entered is : %s" % value)
+    except ValueError as ex:
+        print(ex)
+        break</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Enter an odd number- 2
+Exited due to invalid input!!!</pre>
+          <pre>Enter an odd number- 1
+Value entered is : 1
+Enter an odd number-</pre>
+          <h3>
+           Q-67: What are Python Iterators?
+          </h3>
+          <p>
+           Iterators in Python are array-like objects which allow moving on the next element. We use them in traversing a loop, for example, in a “for” loop.
+          </p>
+          <p>
+           Python library has a no. of iterators. For example, a list is also an iterator and we can start a for loop over it.
+          </p>
+          <h3>
+           Q-68: What is the difference between an Iterator and Iterable?
+          </h3>
+          <p>
+           The collection type like a list, tuple, dictionary, and set are all iterable objects whereas they are also iterable containers which return an iterator while traversing.
+          </p>
+          <p>
+           Here are some advanced-level Python interview questions.
+          </p>
+          <h3>
+           Q-69: What are Python Generators?
+          </h3>
+          <p>
+           A Generator is a kind of function which lets us specify a function that acts like an iterator and hence can get used in a “for” loop.
+          </p>
+          <p>
+           In a generator function, the yield keyword substitutes the return statement.
+          </p>
+          <pre># Simple Python function
+def fn():
+    return "Simple Python function."
+
+# Python Generator function
+def generate():
+    yield "Python Generator function."
+
+print(next(generate()))</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Python Generator function.</pre>
+          <h3>
+           Q-70: What are Closures in Python?
+          </h3>
+          <p>
+           Python closures are function objects returned by another function. We use them to eliminate code redundancy.
+          </p>
+          <p>
+           In the example below, we’ve written a simple closure for multiplying numbers.
+          </p>
+          <pre>def multiply_number(num):
+    def product(number):
+        'product() here is a closure'
+        return num * number
+    return product
+
+num_2 = multiply_number(2)
+print(num_2(11))
+print(num_2(24))
+
+num_6 = multiply_number(6)
+print(num_6(1))</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>22
+48
+6</pre>
+          <h3>
+           Q-71: What are Decorators in Python?
+          </h3>
+          <p>
+           Python decorator gives us the ability to add new behavior to the given objects dynamically. In the example below, we’ve written a simple example to display a message pre and post the execution of a function.
+          </p>
+          <pre>def decorator_sample(func):
+    def decorator_hook(*args, **kwargs):
+        print("Before the function call")
+        result = func(*args, **kwargs)
+        print("After the function call")
+        return result
+    return decorator_hook
+
+@decorator_sample
+def product(x, y):
+    "Function to multiply two numbers."
+    return x * y
+
+print(product(3, 3))</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>Before the function call
+After the function call
+9</pre>
+          <h3>
+           Q-72: How do you create a dictionary in Python?
+          </h3>
+          <p>
+           Let’s take the example of building site statistics. For this, we first need to break up the key-value pairs using a colon(“:”). The keys should be of an immutable type, i.e., so we’ll use the data-types which don’t allow changes at runtime. We’ll choose from an int, string, or tuple.
+          </p>
+          <p>
+           However, we can take values of any kind. For distinguishing the data pairs, we can use a comma(“,”) and keep the whole stuff inside curly braces({…}).
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; type(site_stats)
+&lt;class 'dict'&gt;
+&gt;&gt;&gt; print(site_stats)
+{'type': 'organic', 'site': 'tecbeamers.com', 'traffic': 10000}</pre>
+          <h3>
+           Q-73: How do you read from a dictionary in Python?
+          </h3>
+          <p>
+           To fetch data from a dictionary, we can directly access using the keys. We can enclose a “key” using brackets […] after mentioning the variable name corresponding to the dictionary.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; print(site_stats["traffic"])</pre>
+          <p>
+           We can even call the get method to fetch the values from a dict. It also let us set a default value. If the key is missing, then the KeyError would occur.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; print(site_stats.get('site'))
+tecbeamers.com</pre>
+          <h3>
+           Q-74: How do you traverse through a dictionary object in Python?
+          </h3>
+          <p>
+           We can use the “for” and “in” loop for traversing the dictionary object.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; for k, v in site_stats.items():
+    print("The key is: %s" % k)
+    print("The value is: %s" % v)
+    print("++++++++++++++++++++++++")</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>The key is: type
+The value is: organic
+++++++++++++++++++++++++
+The key is: site
+The value is: tecbeamers.com
+++++++++++++++++++++++++
+The key is: traffic
+The value is: 10000
+++++++++++++++++++++++++</pre>
+          <h3>
+           Q-75: How do you add elements to a dictionary in Python?
+          </h3>
+          <p>
+           We can add elements by modifying the dictionary with a fresh key and then set the value to it.
+          </p>
+          <pre>&gt;&gt;&gt; # Setup a blank dictionary
+&gt;&gt;&gt; site_stats = {}
+&gt;&gt;&gt; site_stats['site'] = 'google.com'
+&gt;&gt;&gt; site_stats['traffic'] = 10000000000
+&gt;&gt;&gt; site_stats['type'] = 'Referral'
+&gt;&gt;&gt; print(site_stats)
+{'type': 'Referral', 'site': 'google.com', 'traffic': 10000000000}</pre>
+          <p>
+           We can even join two dictionaries to get a bigger dictionary with the help of the update() method.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats['site'] = 'google.co.in'
+&gt;&gt;&gt; print(site_stats)
+{'site': 'google.co.in'}
+&gt;&gt;&gt; site_stats_new = {'traffic': 1000000, "type": "social media"}
+&gt;&gt;&gt; site_stats.update(site_stats_new)
+&gt;&gt;&gt; print(site_stats)
+{'type': 'social media', 'site': 'google.co.in', 'traffic': 1000000}</pre>
+          <h3>
+           Q-76: How do you delete elements of a dictionary in Python?
+          </h3>
+          <p>
+           We can delete a key in a dictionary by using the del() method.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; del site_stats["type"]
+&gt;&gt;&gt; print(site_stats)
+{'site': 'google.co.in', 'traffic': 1000000}</pre>
+          <p>
+           Another method, we can use is the pop() function. It accepts the key as the parameter. Also, a second parameter, we can pass a default value if the key doesn’t exist.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; print(site_stats.pop("type", None))
+organic
+&gt;&gt;&gt; print(site_stats)
+{'site': 'tecbeamers.com', 'traffic': 10000}</pre>
+          <h3>
+           Q-77: How do you check the presence of a key in a dictionary?
+          </h3>
+          <p>
+           We can use Python’s “in” operator to test the presence of a key inside a dict object.
+          </p>
+          <pre>&gt;&gt;&gt; site_stats = {'site': 'tecbeamers.com', 'traffic': 10000, "type": "organic"}
+&gt;&gt;&gt; 'site' in site_stats
+True
+&gt;&gt;&gt; 'traffic' in site_stats
+True
+&gt;&gt;&gt; "type" in site_stats
+True</pre>
+          <p>
+           Earlier, Python also provided the has_key() method which got deprecated.
+          </p>
+          <h3>
+           Q-78: What is the syntax for List comprehension in Python?
+          </h3>
+          <p>
+           The signature for the list comprehension is as follows:
+          </p>
+          <pre>[ expression(var) for var in iterable ]</pre>
+          <p>
+           For example, the below code will return all the numbers from 10 to 20 and store them in a list.
+          </p>
+          <pre>&gt;&gt;&gt; alist = [var for var in range(10, 20)]
+&gt;&gt;&gt; print(alist)</pre>
+          <h3>
+           Q-79: What is the syntax for Dictionary comprehension in Python?
+          </h3>
+          <p>
+           A dictionary has the same syntax as was for the list comprehension but the difference is that it uses curly braces:
+          </p>
+          <pre>{ aKey, itsValue for aKey in iterable }</pre>
+          <p>
+           For example, the below code will return all the numbers 10 to 20 as the keys and will store the respective squares of those numbers as the values.
+          </p>
+          <pre>&gt;&gt;&gt; adict = {var:var**2 for var in range(10, 20)}
+&gt;&gt;&gt; print(adict)</pre>
+          <h3>
+           Q-80: What is the syntax for Generator expression in Python?
+          </h3>
+          <p>
+           The syntax for generator expression matches with the list comprehension, but the difference is that it uses parenthesis:
+          </p>
+          <pre>( expression(var) for var in iterable )</pre>
+          <p>
+           For example, the below code will create a generator object that generates the values from 10 to 20 upon using it.
+          </p>
+          <pre>&gt;&gt;&gt; (var for var in range(10, 20))
+ at 0x0000000003668728&gt;
+&gt;&gt;&gt; list((var for var in range(10, 20)))</pre>
+          <p>
+           Now, see more Python interview questions for practice.
+          </p>
+          <h3>
+           Q-81: How do you write a conditional expression in Python?
+          </h3>
+          <p>
+           We can utilize the following single statement as a conditional expression. default_statment if Condition else another_statement
+          </p>
+          <pre>&gt;&gt;&gt; no_of_days = 366
+&gt;&gt;&gt; is_leap_year = "Yes" if no_of_days == 366 else "No"
+&gt;&gt;&gt; print(is_leap_year)
+Yes</pre>
+          <h3>
+           Q-82: What do you know about the Python enumerate?
+          </h3>
+          <p>
+           While using the iterators, sometimes we might have a use case to store the count of iterations. Python gets this task quite easy for us by giving a built-in method known as the enumerate().
+          </p>
+          <p>
+           The enumerate() function attaches a counter variable to an iterable and returns it as the “enumerated” object.
+          </p>
+          <p>
+           We can use this object directly in the “for” loops or transform it into a list of tuples by calling the list() method. It has the following signature:
+          </p>
+          <pre>enumerate(iterable, to_begin=0)</pre>
+          <pre>Arguments:
+iterable: array type object which enables iteration
+to_begin: the base index for the counter is to get started, its default value is 0</pre>
+          <pre># Example - enumerate function 
+alist = ["apple","mango", "orange"] 
+astr = "banana"
+  
+# Let's set the enumerate objects 
+list_obj = enumerate(alist) 
+str_obj = enumerate(astr) 
+  
+print("list_obj type:", type(list_obj))
+print("str_obj type:", type(str_obj))
+
+print(list(enumerate(alist)) )  
+# Move the starting index to two from zero
+print(list(enumerate(astr, 2)))</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>list_obj type: &lt;class 'enumerate'&gt;
+str_obj type: &lt;class 'enumerate'&gt;
+[(0, 'apple'), (1, 'mango'), (2, 'orange')]
+[(2, 'b'), (3, 'a'), (4, 'n'), (5, 'a'), (6, 'n'), (7, 'a')]</pre>
+          <h3>
+           Q-83: What is the use of globals() function in Python?
+          </h3>
+          <p>
+           The globals() function in Python returns the current global symbol table as a dictionary object.
+          </p>
+          <p>
+           Python maintains a symbol table to keep all necessary information about a program. This info includes the names of variables, methods, and classes used by the program.
+          </p>
+          <p>
+           All the information in this table remains in the global scope of the program and Python allows us to retrieve it using the globals() method.
+          </p>
+          <pre>Signature: globals()
+
+Arguments: None</pre>
+          <pre># Example: globals() function 
+x = 9
+def fn(): 
+    y = 3
+    z = y + x
+    # Calling the globals() method
+    z = globals()['x'] = z
+    return z
+       
+# Test Code     
+ret = fn() 
+print(ret)</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>12</pre>
+          <h3>
+           Q-84: Why do you use the zip() method in Python?
+          </h3>
+          <p>
+           The zip method lets us map the corresponding index of multiple containers so that we can use them using as a single unit.
+          </p>
+          <pre>Signature: 
+ zip(*iterators)
+Arguments: 
+ Python iterables or collections (e.g., list, string, etc.)
+Returns: 
+ A single iterator object with combined mapped values</pre>
+          <pre># Example: zip() function
+  
+emp = [ "tom", "john", "jerry", "jake" ] 
+age = [ 32, 28, 33, 44 ] 
+dept = [ 'HR', 'Accounts', 'R&amp;D', 'IT' ] 
+  
+# call zip() to map values 
+out = zip(emp, age, dept)
+  
+# convert all values for printing them as set 
+out = set(out) 
+  
+# Displaying the final values  
+print ("The output of zip() is : ",end="") 
+print (out)</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>The output of zip() is : {('jerry', 33, 'R&amp;D'), ('jake', 44, 'IT'), ('john', 28, 'Accounts'), ('tom', 32, 'HR')}</pre>
+          <h3>
+           Q-85: What are Class or Static Variables in Python programming?
+          </h3>
+          <p>
+           In Python, all the objects share common class or static variables.
+          </p>
+          <p>
+           But the instance or non-static variables are altogether different for different objects.
+          </p>
+          <p>
+           The programming languages like C++ and Java need to use the static keyword to make a variable as the class variable. However, Python has a unique way to declare a static variable.
+          </p>
+          <p>
+           All names initialized with a value in the class declaration becomes the class variables. And those which get assigned values in the class methods becomes the instance variables.
+          </p>
+          <pre># Example 
+class Test: 
+    aclass = 'programming' # A class variable 
+    def __init__(self, ainst): 
+        self.ainst = ainst # An instance variable 
+  
+# Objects of CSStudent class 
+test1 = Test(1) 
+test2 = Test(2) 
+  
+print(test1.aclass)
+print(test2.aclass)
+print(test1.ainst)
+print(test2.ainst)
+
+# A class variable is also accessible using the class name
+print(Test.aclass)</pre>
+          <p>
+           The output is:
+          </p>
+          <pre>programming
+programming
+1
+2
+programming</pre>
+          <p>
+           <strong>
+            Let’s now answer some advanced-level Python interview questions
+           </strong>
+           .
+          </p>
+          <h3>
+           <a id="q16">
+           </a>
+           Q-86: How does the ternary operator work in Python?
+          </h3>
+          <p>
+           The ternary operator is an alternative for the conditional statements. It combines true or false values with a statement that you need to test.
+          </p>
+          <p>
+           The syntax would look like the one given below.
+          </p>
+          <p>
+           <strong>
+            [onTrue] if [Condition] else [onFalse]
+           </strong>
+          </p>
+          <pre class="lang:python decode:true">x, y = 35, 75
+smaller = x if x &lt; y else y
+print(smaller)</pre>
+          <h3>
+           <a id="q17">
+           </a>
+           Q-87: What does the “self” keyword do?
+          </h3>
+          <p>
+           The
+           <strong>
+            self
+           </strong>
+           is a Python keyword which represents a variable that holds the instance of an object.
+          </p>
+          <p>
+           In almost, all the object-oriented languages, it is passed to the methods as a hidden parameter.
+          </p>
+          <h3>
+           <a id="q18">
+           </a>
+           Q-88: What are the different methods to copy an object in Python?
+          </h3>
+          <p>
+           There are two ways to copy objects in Python.
+          </p>
+          <ul>
+           <li>
+            <strong>
+             copy.copy() function
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              It makes a copy of the file from source to destination.
+             </li>
+             <li>
+              It’ll return a shallow copy of the parameter.
+             </li>
+            </ul>
+           </li>
+           <li>
+            <strong>
+             copy.deepcopy() function
+            </strong>
+            <ul style="list-style-type: square;">
+             <li>
+              It also produces the copy of an object from the source to destination.
+             </li>
+             <li>
+              It’ll return a deep copy of the parameter that you can pass to the function.
+             </li>
+            </ul>
+           </li>
+          </ul>
+          <h3>
+           <a id="q19">
+           </a>
+           Q-89: What is the purpose of docstrings in Python?
+          </h3>
+          <p>
+           In Python, the docstring is what we call as the docstrings. It sets a process of recording Python functions, modules, and classes.
+          </p>
+          <h3>
+           <a id="q20">
+           </a>
+           Q-90: Which Python function will you use to convert a number to a string?
+          </h3>
+          <p>
+           For converting a number into a string, you can use the built-in function
+           <strong>
+            str()
+           </strong>
+           .  If you want an octal or hexadecimal representation, use the inbuilt function
+           <strong>
+            oct()
+           </strong>
+           or
+           <strong>
+            hex()
+           </strong>
+           .
+          </p>
+          <div class="message_box announce">
+           <p>
+            💡
+            <strong>
+             <span style="font-size: 10pt;">
+              Also Check.
+             </span>
+            </strong>
+           </p>
+           <p>
+            <strong>
+             <span style="font-size: 10pt;">
+              <a href="/python-multithreading-quiz-to-test-your-skills/" rel="noopener noreferrer" target="_blank">
+               Python Multithreading Quiz
+              </a>
+             </span>
+            </strong>
+           </p>
+          </div>
+          <h3>
+           <a id="q-21">
+           </a>
+           Q-91: How do you debug a program in Python? Is it possible to step through the Python code?
+          </h3>
+          <p>
+           Yes, we can use the Python debugger (
+           <strong>
+            pdb
+           </strong>
+           ) to debug any Python program. And if we start a program using
+           <strong>
+            pdb
+           </strong>
+           , then it let us even step through the code.
+          </p>
+          <h3>
+           <a id="q-22">
+           </a>
+           Q-92: List down some of the PDB commands for debugging Python programs?
+          </h3>
+          <p>
+           Here are a few PDB commands to start debugging Python code.
+          </p>
+          <ul>
+           <li>
+            Add breakpoint
+            <strong>
+             (b)
+            </strong>
+           </li>
+           <li>
+            Resume execution
+            <strong>
+             (c)
+            </strong>
+           </li>
+           <li>
+            Step by step debugging
+            <strong>
+             (s)
+            </strong>
+           </li>
+           <li>
+            Move to the next line
+            <strong>
+             (n)
+            </strong>
+           </li>
+           <li>
+            List source code
+            <strong>
+             (l)
+            </strong>
+           </li>
+           <li>
+            Print an expression
+            <strong>
+             (p)
+            </strong>
+           </li>
+          </ul>
+          <h3>
+           <a id="q-23">
+           </a>
+           Q-93: What is the command to debug a Python program?
+          </h3>
+          <p>
+           The following command helps run a Python program in debug mode.
+          </p>
+          <pre class="lang:sh decode:true">$ python -m pdb python-script.py</pre>
+          <h3>
+           <a id="q-24">
+           </a>
+           Q-94: How do you monitor the code flow of a program in Python?
+          </h3>
+          <p>
+           In Python, we can use
+           <strong>
+            the sys
+           </strong>
+           module’s
+           <strong>
+            settrace()
+           </strong>
+           method to setup trace hooks and monitor the functions inside a program.
+          </p>
+          <p>
+           You need to define a trace callback method and pass it to the
+           <strong>
+            settrace()
+           </strong>
+           function. The callback should specify three arguments as shown below.
+          </p>
+          <pre class="lang:python decode:true">import sys
+
+def trace_calls(frame, event, arg):
+    # The 'call' event occurs before a function gets executed.
+    if event != 'call':
+        return
+    # Next, inspect the frame data and print information.
+    print 'Function name=%s, line num=%s' % (frame.f_code.co_name, frame.f_lineno)
+    return
+
+def demo2():
+    print 'in demo2()'
+
+def demo1():
+    print 'in demo1()'
+    demo2()
+
+sys.settrace(trace_calls)
+demo1()</pre>
+          <h3>
+           <a id="q-25">
+           </a>
+           Q-95: Why and when do you use generators in Python?
+          </h3>
+          <p>
+           A generator in Python is a function which returns an iterable object. We can iterate on the generator object using the
+           <strong>
+            yield
+           </strong>
+           keyword. But we can only do that once because their values don’t persist in memory, they get the values on the fly.
+          </p>
+          <p>
+           Generators give us the ability to hold the execution of a function or a step as long as we want to keep it. However, here are a few examples where it is beneficial to use generators.
+          </p>
+          <ul>
+           <li>
+            We can replace loops with generators for efficiently calculating results involving large data sets.
+           </li>
+           <li>
+            Generators are useful when we don’t want all the results and wish to hold back for some time.
+           </li>
+           <li>
+            Instead of using a callback function, we can replace it with a generator. We can write a loop inside the function doing the same thing as the callback and turns it into a generator.
+           </li>
+          </ul>
+          <h3>
+           <a id="q-26">
+           </a>
+           Q-96: What does the yield keyword do in Python?
+          </h3>
+          <p>
+           The
+           <strong>
+            yield
+           </strong>
+           keyword can turn any function into a generator. It works like a standard return keyword. But it’ll always return a generator object. Also, a method can have multiple calls to the
+           <strong>
+            yield
+           </strong>
+           keyword.
+          </p>
+          <p>
+           See the example below.
+          </p>
+          <pre class="lang:python decode:true">def testgen(index):
+  weekdays = ['sun','mon','tue','wed','thu','fri','sat']
+  yield weekdays[index]
+  yield weekdays[index+1]
+
+day = testgen(0)
+print next(day), next(day)
+
+#output: sun mon</pre>
+          <h3>
+           <a id="q-27">
+           </a>
+           Q-97: How to convert a list into other data types?
+          </h3>
+          <p>
+           Sometimes, we don’t use lists as is. Instead, we have to convert them to other types.
+          </p>
+          <h4>
+           Turn a list into a string.
+          </h4>
+          <p>
+           We can use the
+           <strong>
+            ”.join()
+           </strong>
+           method which combines all elements into one and returns as a string.
+          </p>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri','sat']
+listAsString = ' '.join(weekdays)
+print(listAsString)
+
+#output: sun mon tue wed thu fri sat</pre>
+          <h4>
+           Turn a list into a tuple.
+          </h4>
+          <p>
+           Call Python’s
+           <strong>
+            tuple()
+           </strong>
+           function for converting a list into a tuple.
+          </p>
+          <p>
+           This function takes the list as its argument.
+          </p>
+          <p>
+           But remember, we can’t change the list after turning it into a tuple because it becomes immutable.
+          </p>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri','sat']
+listAsTuple = tuple(weekdays)
+print(listAsTuple)
+
+#output: ('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat')</pre>
+          <h4>
+           Turn a list into a set.
+          </h4>
+          <p>
+           Converting a list to a set poses two side-effects.
+          </p>
+          <ul>
+           <li>
+            Set doesn’t allow duplicate entries so that the conversion will remove any such item.
+           </li>
+           <li>
+            A set is an ordered collection, so the order of list items would also change.
+           </li>
+          </ul>
+          <p>
+           However, we can use the
+           <strong>
+            set()
+           </strong>
+           function to convert a list into a Set.
+          </p>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri','sat','sun','tue']
+listAsSet = set(weekdays)
+print(listAsSet)
+
+#output: set(['wed', 'sun', 'thu', 'tue', 'mon', 'fri', 'sat'])</pre>
+          <h4>
+           Turn a list into a dictionary.
+          </h4>
+          <p>
+           In a dictionary, each item represents a key-value pair. So converting a list isn’t as straightforward as it were for other data types.
+          </p>
+          <p>
+           However, we can achieve the conversion by breaking the list into a set of pairs and then call the
+           <strong>
+            zip()
+           </strong>
+           function to return them as tuples.
+          </p>
+          <p>
+           Passing the tuples into the
+           <strong>
+            dict()
+           </strong>
+           function would finally turn them into a dictionary.
+          </p>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri']
+listAsDict = dict(zip(weekdays[0::2], weekdays[1::2]))
+print(listAsDict)
+
+#output: {'sun': 'mon', 'thu': 'fri', 'tue': 'wed'}</pre>
+          <h3>
+           <a id="q-28">
+           </a>
+           Q-98: How do you count the occurrences of each item present in the list without explicitly mentioning them?
+          </h3>
+          <p>
+           Unlike sets, lists can have items with the same values.
+          </p>
+          <p>
+           In Python, the list has a
+           <strong>
+            count()
+           </strong>
+           function which returns the occurrences of a particular item.
+          </p>
+          <h4>
+           Count the occurrences of an individual item.
+          </h4>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri','sun','mon','mon']
+print(weekdays.count('mon'))
+
+#output: 3</pre>
+          <h4>
+           Count the occurrences of each item in the list.
+          </h4>
+          <p>
+           We’ll use the list comprehension along with the
+           <strong>
+            count()
+           </strong>
+           method. It’ll print the frequency of each of the items.
+          </p>
+          <pre class="lang:python decode:true">weekdays = ['sun','mon','tue','wed','thu','fri','sun','mon','mon']
+print([[x,weekdays.count(x)] for x in set(weekdays)])
+
+#output: [['wed', 1], ['sun', 2], ['thu', 1], ['tue', 1], ['mon', 3], ['fri', 1]]</pre>
+          <h3>
+           <a id="q-29">
+           </a>

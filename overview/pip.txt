@@ -1,0 +1,8 @@
+   Download a package and all of its dependencies.
+$ pip3 download flask
+
+
+
+   Install through a proxy.
+# pip3 install PySocks-1.7.0-py3-none-any.whl
+# pip3 install --proxy socks5://127.0.0.1:8080 flask

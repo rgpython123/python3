@@ -1,0 +1,55 @@
+
+
+bcrypt - Modern password hashing for your software and your servers.
+
+   Secure Hash Algorithm
+SHA256 is 256 bits (32 bytes)
+SHA512 is 512 bits (64 bytes)
+
+
+Hashing passwords is a way of taking a variable-length password and creating a cryptic, fixed-length password from it. You do this by generating and using a salt value . A salt value is a random value that you use to generate the hashed password.
+
+A hash is designed to act as a "one-way function": A mathematical operation that's easy to perform, but very difficult to reverse. Like other forms of encryption, it turns readable data into a scrambled cipher. But instead of allowing someone to decrypt that data with a specific key, as typical encryption functions do, hashes aren't designed to be decrypted. Instead, when you enter your password on a website, it simply performs the same hash again and checks the results against the hash it created of your password when you chose it, verifying the password's validity without having to store the sensitive password itself.
+
+"salting," adding random data to a password before hashing it and then storing that "salt" value along with the hash.
+
+   *** Dictionary Attack ***
+
+Trying apple        : failed
+Trying blueberry    : failed
+Trying justinbeiber : failed
+...
+Trying letmein      : failed
+Trying s3cr3t       : success!
+
+   *** Brute Force Attack ***
+
+Trying aaaa : failed
+Trying aaab : failed
+Trying aaac : failed
+...
+Trying acdb : failed
+Trying acdc : success!
+ 
+
+
+# pip install bcrypt
+# pip3 install bcrypt
+
+>>> import bcrypt
+>>> password = b"super secret password"
+
+>>> # Hash a password for the first time, with a randomly-generated salt
+>>> hashed = bcrypt.hashpw(password, bcrypt.gensalt())
+
+>>> # Check that an unhashed password matches one that has previously been
+>>> # hashed
+>>> if bcrypt.checkpw(password, hashed):
+...     print("It Matches!")
+... else:
+...     print("It Does not Match :(")
+... 
+It Matches!
+
+
+

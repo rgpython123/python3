@@ -1,0 +1,5 @@
+
+
+bdb module handles basic debugger functions, like setting breakpoints or managing execution via the debugger.
+
+The pdb module contains the debugger. pdb contains one class, Pdb, which inherits from bdb.Bdb.

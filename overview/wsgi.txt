@@ -1,0 +1,25 @@
+WSGI:
+
+The Web Server Gateway Interface (WSGI, pronounced whiskey)
+ is a simple calling convention for web servers to forward
+ requests to web applications or frameworks written in the
+ Python programming language.
+
+In 2003, Python web frameworks were typically written against
+ only CGI, FastCGI, mod_python, or some other custom API of a
+ specific web server.[5] To quote PEP 333:
+
+    Python currently boasts a wide variety of web application
+ frameworks, such as Zope, Quixote, Webware, SkunkWeb, PSO,
+ and Twisted Web -- to name just a few. This wide variety of
+ choices can be a problem for new Python users, because generally
+ speaking, their choice of web framework will limit their choice
+ of usable web servers, and vice versa... By contrast, although
+ Java has just as many web application frameworks available,
+ Java's "servlet" API makes it possible for applications written
+ with any Java web application framework to run in any web server
+ that supports the servlet API.
+
+WSGI was thus created as an implementation-agnostic interface
+ between web servers and web applications or frameworks to promote
+ common ground for portable web application development.

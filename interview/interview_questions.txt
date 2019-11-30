@@ -1,0 +1,150 @@
+1) What is Python? What are the benefits of using Python?
+
+Python is a programming language with objects, modules, threads, exceptions and automatic memory management. The benefits of pythons are that it is simple and easy, portable, extensible, build-in data structure and it is an open source.
+
+
+2) What is PEP 8?
+
+PEP 8 is a coding convention, a set of recommendations, about how to write your Python code more readable.
+
+
+3) What is pickling and unpickling?
+
+Pickle module accepts any Python object and converts it into a string representation and dumps it into a file by using dump function, this process is called pickling. While the process of retrieving original Python objects from the stored string representation is called unpickling.
+
+
+4) How Python is interpreted?
+
+Python language is an interpreted language. Python program runs directly from the source code. It converts the source code that is written by the programmer into an intermediate language, which is again translated into machine language that has to be executed.
+
+
+5) How memory is managed in Python?
+
+Python memory is managed by Python private heap space. All Python objects and data structures are located in a private heap. The programmer does not have access to this private heap and interpreter takes care of this Python private heap.
+The allocation of Python heap space for Python objects is done by Python memory manager. The core API gives access to some tools for the programmer to code.
+Python also have an inbuilt garbage collector, which recycle all the unused memory and frees the memory and makes it available to the heap space.
+
+
+6) What are the tools that help to find bugs or perform static analysis?
+
+PyChecker is a static analysis tool that detects the bugs in Python source code and warns about the style and complexity of the bug. Pylint is another tool that verifies whether the module meets the coding standard.  There is also flake8, unittest, nose2, pytest & selenium.  
+
+
+7) What are Python decorators?
+
+A Python decorator is a specific change that we make in Python syntax to alter functions easily.
+
+A function that takes another function as an argument, typically, modifies it and then returns the modified function.
+
+A function returning another function, usually applied as a function transformation using the @wrapper syntax. Common examples for decorators are classmethod() and staticmethod().
+
+
+8) What is the difference between list and tuple?
+
+The difference between list and tuple is that list is mutable while tuple is not. Tuple can be hashed for e.g as a key for dictionaries.
+
+
+9) How are arguments passed ... by value or by reference?
+
+Everything in Python is an object and all variables hold references to the objects. The references values are according to the functions; as a result you cannot change the value of the references. However, you can change the objects if it is mutable.
+
+The two most widely known and easy to understand approaches to parameter passing amongst programming languages are pass-by-reference and pass-by-value. Unfortunately, Python is “pass-by-object-reference”, of which it is often said: “Object references are passed by value.”
+
+Python uses a mechanism, which is known as "Call-by-Object", sometimes also called "Call by Object Reference" or "Call by Sharing"
+
+If you pass immutable arguments like integers, strings or tuples to a function, the passing acts like Call-by-value. It's different, if we pass mutable arguments.
+
+All parameters (arguments) in the Python language are passed by reference. It means if you change what a parameter refers to within a function, the change also reflects back in the calling function.
+
+   BONUS:
+Does Java pass by reference or pass by value?
+   Pass by Value: The method parameter values are copied to another variable and then the copied object is passed, that's why it's called pass by value. Pass by Reference: An alias or reference to the actual parameter is passed to the method, that's why it's called pass by reference.
+
+
+10) What is Dict and List comprehensions are?
+
+They are syntax constructions to ease the creation of a Dictionary or List based on existing iterable.
+
+
+11) What are the built-in type does python provides?
+
+
+There are mutable and Immutable types of Pythons built in types Mutable built-in types
+
+List
+Sets
+Dictionaries
+Immutable built-in types
+
+Strings
+Tuples
+Numbers
+
+
+12) What is the difference between iteration and recursion?
+
+Iteration is repeating code by looping.
+Recursion is repeating code by calling itself again and again.
+
+
+13) What are *args?
+
+Positional Arguments 
+
+
+14) What are *kwargs?
+
+Keyword Arguments    
+
+
+15) What are function dunders?
+
+' __name__,' '__dict__', '__doc__',
+'__hash__', '__repr__' , '__str__'
+
+
+16) What are object dunders?
+
+' __name__,' '__dict__', '__doc__',
+'__hash__', '__repr__' , '__str__'
+
+
+17) Are functions data or non-data descriptors?
+
+ Functions are non-data descriptors.
+
+
+18) Why do functions have a __get__() method?
+
+Functions have a __get__() method so that they can be converted to a method when accessed as attributes.
+
+
+19) What are First Class Functions?
+
+You can assign them to variables, return from other methods and pass as arguments.
+
+
+20) What are Descriptors?
+
+An object with any of these methods: __get__(), __set__(), and __delete__(). If any of those methods are defined for an object, it is said to be a descriptor.
+
+
+21) What is a Closure?
+
+Function objects returned by another function.  We use them to eliminate code redundancy.
+
+
+22) What is a Decorator?
+
+A function that takes another function as an argument, typically, modifies it and then returns the modified function.
+
+23) What are examples of Decorators?
+
+classmethod(), staticmethod() and property().
+
+
+24) What does __init__.py do?
+
+It tells Python that the directory is a Package.
+
+Files named __init__.py are used to mark directories on disk as Python package directories.

@@ -1,0 +1,34 @@
+   TLDR: Ensure that code is not run when the module is imported.
+
+   EXAMPLE:
+
+Create the following files.
+
+$ vim a.py
++++
+import b
++++
+
+   AND
+
+$ vim b.py
++++
+print "Hello World from %s!" % __name__
+
+if __name__ == '__main__':
+    print "Hello World again from %s!" % __name__
++++
+
+
+Running them will get you this output:
+
+$ python a.py
+Hello World from b!
+
+As you can see, when a module is imported, Python sets globals()['__name__'] in this module to the module's name. Also, upon import all the code in the module is being run. As the if statement evaluates to False this part is not executed.
+
+$ python b.py
+Hello World from __main__!
+Hello World again from __main__!
+
+As you can see, when a file is executed, Python sets globals()['__name__'] in this file to "__main__". This time, the if statement evaluates to True and is being run.

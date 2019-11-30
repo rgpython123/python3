@@ -1,0 +1,5 @@
+$ sudo apt -y install pychecker
+
+$ sudo apt -y install pyflakes
+
+$ sudo apt -y install pylint

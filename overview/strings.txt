@@ -1,0 +1,22 @@
+
+
+
+String:
+   len,   in, not in
+
+   count, find, rfind, index, rindex,
+   ljust, center, rjust, zfill,
+   lstrip, strip, rstrip,
+   replace, REVERSE => s[::-1]
+   split,       SLICE       =>[3:9]
+   splitlines
+   startswith, endswith
+
+   ***Checks***
+   isalnum(), isalpha(), isdigit(),
+   islower(), isupper(),
+   isspace(), istitle(),
+
+   ***Transform***
+   lower(), upper(), swapcase(),
+   capitalize(), title()

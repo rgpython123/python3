@@ -1,0 +1,72 @@
+Name some Python Builtin functions.
+
+Builtins:
+
+ - Help   13
+
+       dir, help, type, chr, ord,
+
+       locals, globals, vars, 
+
+       print, repr, str
+
+       id, hash
+
+ - Data Structures   5
+
+       list, tuple, set, fs, dict
+
+ - Work with Sequences   16
+
+       all, any, enumerate, filter, iter,
+
+       len, map, max, min, next,
+
+       range, reversed, 
+
+       slice, sorted, sum,
+
+       zip
+
+ - Numbers   9
+
+       int, float, complex,
+
+       bin, oct, hex,
+
+       abs, power, round,
+
+ - Classes & Properties   11
+
+       object, property,
+
+       isinstance, issubclass, super,
+
+       classmethod, staticmethod,
+
+       setattr, hasattr, getattr,
+
+       delattr
+
+ - Extras   10
+
+       ascii, bool, compile,
+
+       divmod,
+
+       eval, exec, 
+
+       input,
+
+       open, 
+
+       quit, exit
+
+
+
+   EXAMPLE:
+   *** super() ***
+class C(B):
+    def method(self, arg):
+        super().method(arg)    # This does the same thing as:
+                               # super(C, self).method(arg)

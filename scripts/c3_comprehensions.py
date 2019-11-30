@@ -1,0 +1,42 @@
+#!/bin/python3.6
+
+
+def main():
+    input("Press Enter to continue...")
+    print()
+    print("Create a list of numbers from 1 to 10.")
+    input()
+    print("[ n for n in range(1, 11) ]")
+    input()
+    print("Create a list of even numbers from 1 to 10.")
+    input()
+    print("[ n for n in range(1, 11) if n % 2 == 0 ]")
+    input()
+    print("Create a list of numbers divisible by 2 & 3 from 1 to 10.")
+    input()
+    print("[ n for n in range(1, 11) if n % 2 == 0 if n % 3 == 0 ]")
+    input()  
+    print("Create a set of even numbers from 1 to 10.")
+    input()
+    print("{ n for n in range(1, 11) if n % 2 == 0 }")
+    input()
+    print("Create a Dictionary.")
+    input()
+    print("d = { 'a':1, 'b':2, 'c':3 }")
+    input()
+    print("Using a Dictionary Comprehension, generate the full Dictionary.")
+    input()
+    print("d = { key:value for (key,value) in d.items() }")
+    input()
+    print("Using a Dictionary Comprehension, generate a Dictionary with only even values.")
+    input()
+    print("d = { key:value for (key,value) in d.items() if value % 2 == 0 }")
+    input()
+    print("What is the syntax for List, Generator, Set & Dictionary Comprehension?")
+    input()
+    print("[ expr ], ( expr ), { expr }, { dict expr }")
+    input()
+
+
+if __name__ == '__main__':
+    main()

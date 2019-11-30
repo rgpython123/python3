@@ -1,0 +1,87 @@
+asyncio
+  event loop - orchestrate the execution of the coroutines.
+  coroutines - efficient & extensible. A subroutine that can be paused and resumed.
+  async queue
+
+
+
+
+
+
+
+
+Install Python-3.6.3
+
+Downdload Python-3.6.3.tgz
+# tar -zxvf Python-3.6.3.tgz 
+# cd Python-3.6.3/
+# yum -y install gcc zlib-devel openssl-devel
+# ./configure 
+# make
+# make test
+# make install
+# python3
+
+We present the example in three stages. 
+  First, we show an async event loop and sketch a crawler that uses the event loop with callbacks: it is very efficient, but extending it to more complex problems would lead to unmanageable spaghetti code. 
+  Second, therefore, we show that Python coroutines are both efficient and extensible. We implement simple coroutines in Python using generator functions. 
+  Third, we use the full-featured coroutines from Python's standard "asyncio" library, and coordinate them using an async queue.
+
+The Task
+  A web crawler finds and downloads all pages on a website, perhaps to archive or index them. Beginning with a root URL, it fetches each page, parses it for links to unseen pages, and adds these to a queue. It stops when it fetches a page with no unseen links and the queue is empty.
+  We can hasten this process by downloading many pages concurrently. As the crawler finds new links, it launches simultaneous fetch operations for the new pages on separate sockets. It parses responses as they arrive, adding new links to the queue. There may come some point of diminishing returns where too much concurrency degrades performance, so we cap the number of concurrent requests, and leave the remaining links in the queue until some in-flight requests complete.
+
+Asynchronous I/O frameworks do concurrent operations on a single thread using non-blocking sockets.
+  Implement "concurrency" / "parallelism".
+
+Asynchronous I/O is right for applications with many slow or sleepy connections with infrequent events.
+
+A coroutine is a subroutine that can be paused and resumed.
+  Pause a coroutine while it waits for an IO (an HTTP request) and execute another one in the meantime.
+  Use the "yield from" keyword to state that we want the return value of a coroutine.
+
+An event loop is used to orchestrate the execution of the coroutines.
+
+Use the yield from keyword to state that we want the return value of a coroutine.
+
+
+# pip3.6 install aiohttp
+
+   *** Example ***   See aiohttp for more.
+   (1) Download and save multiple files.
+  Place files on web server.
+/var/www/html/mp3/Meditation1.mp3
+/var/www/html/mp3/Meditation2.mp3
+/var/www/html/mp3/Meditation3.mp3
+
+http://127.0.0.1/mp3/
+
+
+   *** asyncio script to download multiple files. ***
+# vim downloader3.py
++++
+import asyncio
+import aiohttp
+
+# get content and write it to file
+def write_to_file(filename, content):
+  with open(filename, 'wb') as f:
+    f.write(content)
+
+@asyncio.coroutine
+def download_file(url):
+  content = yield from asyncio.async(get(url))
+  basepath, filename = os.path.split(url)
+
+  write_to_file(filename, content)
+
+images = [ 'http://127.0.0.1/mp3/Meditation1.mp3', 'http://127.0.0.1/mp3/Meditation2.mp3', 'http://127.0.0.1/mp3/Meditation3.mp3' ]
+
+coroutines = [download_file(url) for url in images]
+loop = asyncio.get_event_loop()
+loop.run_until_complete(asyncio.wait(coroutines))
+loop.close()
++++
+
+# python3 downloader3.py
+

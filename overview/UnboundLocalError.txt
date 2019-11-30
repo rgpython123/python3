@@ -1,0 +1,27 @@
+UnboundLocalError:
+==================
+
+>>> x = 3
+>>> 
+>>> def f():
+...     print(x)
+...     x += 3
+... 
+>>> f()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "<stdin>", line 2, in f
+UnboundLocalError: local variable 'x' referenced before assignment
+
+
+>>> x
+3
+>>> def f():
+...     global x
+...     print(x)
+...     x += 3
+...     print(x)
+... 
+>>> f()
+3
+6

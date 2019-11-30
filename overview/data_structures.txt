@@ -1,0 +1,81 @@
+M: Mutable  ???
+O: Ordered  ???
+H: Hashable ???
+
+
+*) What is a List?
+
+    A mutable ordered collection of objects referenced by index.
+    Not Hashable.
+
+
+*) What is a Tuple?
+
+    An immutable ordered collection of objects referenced by index.
+    Hashable.
+
+
+*) What is a Set?
+
+    A mutable unordered collection of unique objects.
+    Not Hashable.
+
+
+*) What is a Frozenset?
+
+    An immutable unordered collection of unique objects.
+    Hashable.
+
+
+*) What is a Dictionary (also known as an associative array or hash)
+
+   Ah mutable unordered collection of values referenced by key.
+   Not Hashable.
+
+
+
+List:
+   len,
+   in, not in,
+
+   clear
+   del, pop, remove,
+
+   append, extend, insert,
+   copy, copy.deepcopy,
+   count, index, ' '.join(l),
+
+   reverse, sort, sorted
+
+
+Set:
+   len
+
+   in, not in,
+
+   clear,
+   discard, pop, remove,
+
+   add, update, copy,
+
+   intersection, union, difference,
+   symmetric difference,
+   issubset, issupperset,  
+   isdisjoint
+
+
+Dictionary:
+     len(d)
+     in, not in
+
+     d.clear()
+     del d[k]
+
+     d2 = d1.copy()
+     d1.update(d3)
+     d.get ('position', 'ENG')
+
+     d.items():
+           - list of (key,value) tuple
+     d.keys(): list of keys
+     d.values(): list of values 

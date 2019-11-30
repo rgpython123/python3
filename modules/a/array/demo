@@ -1,0 +1,28 @@
+
+>>> import array
+
+>>> a = array.array('l')
+>>> a
+array('l')
+
+>>> a2 = array.array('c', 'hello world')
+>>> a2
+array('c', 'hello world')
+>>> a2.count('l')
+3
+
+
+>>> a3 = array.array('u', u'hello \u2641')
+>>> a3
+array('u', u'hello \u2641')
+
+>>> a5 = array.array('l', [1, 2, 3, 4, 5])
+>>> a5
+array('l', [1, 2, 3, 4, 5])
+
+>>> a6 = array.array('d', [1.0, 2.0, 3.14])
+>>> a6
+array('d', [1.0, 2.0, 3.14])
+
+
+

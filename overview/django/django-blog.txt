@@ -1,0 +1,250 @@
+Django:
+
+   MVC: Model View Controller
+   MVT: Model View Template
+
+Model: Interface to Data.
+View:  Inteface that Users see.
+Controller: Passes information between Model & View.
+
+Note: Each model is a class with class variables that 
+       represent fields in the database.
+      Sets column names and data types to be created 
+       in the database.
+
+
+   *** Connect urls to functions. ***
+
+
+urls...views...templates...dbs
+urls...functions...templates...dbs
+
+Views need to return either an HTTP Response or an
+   Exception.
+
+   
+   Template Inheritance:
+ base.html
+   -> home.html
+   -> about.html
+
+  Forms, after validated, get passed to Templates.
+
+  Flash Messages: from django.contrib import messages
+   Example: messages.success(request, f'Account created for {username}!')
+     - messages.debug
+     - messages.info
+     - messages.success
+     - messages.warning
+     - messages.error
+
+
+CSS - Cascading Style Sheets  
+
+
+
+ORM = Object Relational Mapper
+      Django has one built-in.
+
+Similar to SQLAlchemy's object-relational mapper (ORM), 
+a component that provides the data mapper pattern, where 
+classes can be mapped to the database in open ended way.
+
+This allows the object model and database schema to develop
+in a cleanly decoupled way from the beginning.
+
+
+Each class is going to be its own table in the database.
+
+Each attribute will be a different field in the database table.
+
+
+
+
+pip install django
+
+>>> import django
+
+>>> django.get_version()
+'2.2.6'
+
+$ python3 -m django --version
+
+$ django-admin startproject django-project
+
+$ django-admin startapp blog
+
+
+$ vim settings.py
++++
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
+]
+
+TIME_ZONE = 'America/Los_Angeles'
++++
+
+
+         Migrations:
+$ python3 manage.py makemigrations 
+   # Detects the changes and prepares Django to update the DB.
+
+$ python3 manage.py sqlmigrate blog 0001
+   # View SQL commands to apply.
+
+$ python3 manage.py migrate
+   # Apply the changes.
+
+
+
+   Admin Site:
+$ python3 manage.py createsuperuser
+
+   GOTO: http://localhost:8000/admin
+
+
+   Run Server on Different Port:
+$ vim runserver.sh
++++
+#!/bin/bash
+exec ./manage.py runserver 0.0.0.0:8888
++++
+
+   Save it as runserver in the same dir as manage.py
+
+$ chmod +x runserver
+
+$ ./runserver
+
+
+         OR
+
+$ python manage.py runserver 127.0.0.1:8888
+
+$ python manage.py runserver 8888
+
+$ python manage.py runserver 0:8888
+
+
+
+         Databases:
+
+   Add data to Database via Django Shell:
+
+$ python3 manage.py shell
+
+>>> from blog.models import Post
+>>> from django.contrib.auth.models import User
+
+>>> User.objects.all()
+<QuerySet [<User: AdamS>, <User: JohnS>, <User: ZedS>]>
+
+>>> User.objects.first()
+<User: AdamS>
+
+>>> User.objects.last()
+<User: ZedS>
+
+>>> User.objects.filter(username='JohnS')
+<QuerySet [<User: JohnS>]>
+
+>>> User.objects.filter(username='JohnS').first()
+<User: JohnS>
+
+
+>>> user = User.objects.filter(username='JohnS').first()
+
+>>> user
+<User: JohnS>
+
+>>> user.id
+1
+
+   # Get Primary Key
+>>> user.pk
+1
+
+
+>>> user = User.objects.get(id=1)
+
+>>> user
+<User: JohnS>
+
+
+>>> Posts.objects.all()
+<QuerySet []>
+
+>>> post_1 = Post(title='Blog 1',
+                  content='First Post Content!',
+                  author=user)
+
+
+>>> post_1.save()
+
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>]>
+
+
+>>> post_2 = Post(title='Blog 2',
+                  content='Second Post Content!',
+                  author_id=user_id)
+
+>>> post_2.save()
+
+
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 2>]>
+
+>>> post = Post.objects.first()
+
+>>> post.content
+'First Post Content!'
+
+>>> post.date_posted
+datetime.datetime(...)
+
+>>> post.author
+<User: JohnS>
+
+>>> post.author.email
+'JohnSmith@gmail.com
+
+
+   # Get all of the user's posts.
+>>> user.post_set.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 2>]>
+
+   # Create a Post.
+>>> user.post_set.create(title='Blog 3',
+                  content='Third Post Content!')
+
+>>> Post.objects.all()
+<QuerySet [<Post: Blog 1>, <Post: Blog 2>, <Post: Blog 3>]>
+
+
+
+         User Login & Registration:
+
+$ python manage.py startapp users
+
+$ vim settings.py
++++
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
+    'users.apps.UsersConfig',
+]
+
+TIME_ZONE = 'America/Los_Angeles'
++++

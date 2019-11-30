@@ -1,0 +1,94 @@
+Django Devopsweb:
+
+$ source venv/bin/activate
+
+$ django-admin startapp devopsweb
+
+
+$ vim settings.py
++++
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'blog.apps.BlogConfig',
+    'devopsweb.apps.DevopswebConfig',
+]
++++
+
+
+$ vim django_project/urls.py
++++
+    path('', include('blog.urls')),
+    path('', include('devopsweb.urls')),
+]
+
++++
+
+
+
+$ vim devopsweb/urls.py
++++
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('overview/', views.overview, name='devopsweb-overview'),
+]
+
++++
+
+
+$ vim devopsweb/views.py
++++
+from django.shortcuts import render
+
+def overview(request):
+    return render(request, 'devopsweb/overview.html', {'title': 'Django Overview'})
++++
+
+
+$ mkdir -p devopsweb/templates/devopsweb
+$ vim devopsweb/templates/devopsweb/overview.html
++++
+{% extends "blog/base.html" %}
+{% block content %}
+    <h1>Django Overview</h1>
+{% endblock content %}
++++
+
+
+
+$ vim blog/templates/blog/base.html
++++
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'blog-home' %}">Home</a>
+              <a class="nav-item nav-link" href="{% url 'blog-about' %}">About</a>
+              <a class="nav-item nav-link" href="{% url 'devopsweb-overview' %}">Django Overview</a>
+            </div>
++++
+
+
+$ python manage.py runserver
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

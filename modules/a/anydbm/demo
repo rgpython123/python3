@@ -1,0 +1,12 @@
+# python anydbm_new.py
+
+# python anydbm_whichdb.py
+dbhash
+
+# python anydbm_existing.py
+keys(): ['author', 'key', 'today']
+iterating: author Doug
+iterating: key value
+iterating: today Sunday
+db["author"] = Doug
+

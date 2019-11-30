@@ -1,0 +1,83 @@
+
+
+
+Notice the difference in the call signatures of f, class_f and static_f:
+
+class A(object):
+    def f(self, x):
+        print "executing f(%s, %s)" % (self, x)
+
+    @classmethod
+    def class_f(cls, x):
+        print "executing class_f(%s, %s)" % (cls, x)
+
+    @staticmethod
+    def static_f(x):
+        print "executing static_f(%s)" % x    
+
+a = A()
+
+
+
+Below is the usual way an object instance calls a method. The object instance, a, is implicitly passed as the first argument.
+
+a.f(1)
+# executing f(<__main__.A object at 0xb7dbef0c>,1)
+
+
+
+With classmethods, the class of the object instance is implicitly passed as the first argument instead of self.
+
+a.class_f(1)
+# executing class_f(<class '__main__.A'>,1)
+
+
+
+You can also call class_f using the class. In fact, if you define something to be a classmethod, it is probably because you intend to call it from the class rather than from a class instance. A.f(1) would have raised a TypeError, but A.class_f(1) works just fine:
+
+A.class_f(1)
+# executing class_f(<class '__main__.A'>,1)
+
+One use people have found for class methods is to create inheritable alternative constructors.
+
+
+
+
+With staticmethods, neither self (the object instance) nor cls (the class) is implicitly passed as the first argument. They behave like plain functions except that you can call them from an instance or the class:
+
+a.static_f(1)
+# executing static_f(1)
+
+A.static_f('hi')
+# executing static_f(hi)
+
+
+
+Staticmethods are used to group functions which have some logical connection with a class to the class.
+
+f is just a function, but when you call a.f you don't just get the function, you get a "partially applied" version of the function with the object instance a bound as the first argument to the function. f expects 2 arguments, while a.f only expects 1 argument.
+
+a is bound to f. That is what is meant by the term "bound" below:
+
+print(a.f)
+# <bound method A.f of <__main__.A object at 0xb7d52f0c>>
+
+With a.class_f, a is not bound to class_f, rather the class A is bound to class_f.
+
+
+
+print(a.class_f)
+# <bound method type.class_f of <class '__main__.A'>>
+
+
+
+
+Here, with a staticmethod, even though it is a method, a.static_f just returns a good 'ole function with no arguments bound. static_f expects 1 argument, and a.static_f expects 1 argument too.
+
+print(a.static_f)
+# <function static_foo at 0xb7d479cc>
+
+And of course the same thing happens when you call static_f with the class A instead.
+
+print(A.static_f)
+# <function static_foo at 0xb7d479cc>

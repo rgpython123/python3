@@ -1,0 +1,598 @@
+Lists
+
+list1 = []                      # A new empty list
+
+list2 = [1, 2, 3, ‘cat’]        # A new non-empty list with mixed item types
+
+list.reverse()                  # Reverse a list.
+list[::-1]
+
+list1.append(‘cat’)             # Add a single member, at the end of the list
+
+list1.extend([‘dog’, ‘mouse’])  # Add several members
+
+list1.insert(i,x)               # Insert object “x” at at index position “i”.
+
+del list[1]                     # Remove the 2nd element; an alternative to list.pop(1)
+del list4[:]                    # Clear the contents of a list
+
+list1.pop()                     # Remove the last item
+list1.pop(0)                    # Remove the first item , which is the item at index 0
+
+list.remove('cat')              # Removes only the 1st occurrence of 'cat'
+
+
+len(list1)                      # Length
+
+
+if ‘cat’ in list1:              # Membership test
+  list1.remove(‘cat’)           # Remove an element from a list
+
+for item in list1:              # iterate over a list, step through its elements
+  print (item)
+
+
+
+set1 = set(["cat", "dog"])      # Initialize a set from a list
+
+list3 = list(set1)              # Get a list from a set
+
+list4 = list3[:]                # A shallow list copy
+
+list3 == list4                  # True; equality check by value
+
+list3 is list4                  # False; identity check
+
+
+print (list3[1:3], list3[1:], list3[:2])   # Slices
+
+print (max(list3), min(list3), sum(list3)) # Aggregates
+
+list.sort()
+
+sorted(list); sorted(strs, key=len); sorted(strs, key=str.lower);
+sorted(list, key=lambda item: item[-1])
+sorted(list, key=lambda item: item.split('@')[1])
+
+[item for item in list if item >2]         # List Comprehension
+
+list1 = range(1,101);  list2 = xrange(1,101)
+
+sum1 = sum([x for x in list1 if x > 0])   ### Sum of a List Comprehension
+
+sum2 = sum((x for x in list2 if x > 0))   ### Sum of a Generator. (Uses less memory and is faster)
+
+reduce(lambda x,y: x + y, list1)          ### Reduce a list
+
+
+
+A list in Python is an ordered sequence of objects referenced by index.
+
+It is a very general structure, and list elements don't have to be of
+the same type:
+
+   ... you can put numbers, letters, strings and nested lists all on
+the same list.
+
+
+list1 = []                      # A new empty list
+
+list2 = [1, 2, 3, ‘cat’]        # A new non-empty list with mixed item types
+
+list1.append(‘cat’)             # Add a single member, at the end of the list
+
+list1.extend([‘dog’, ‘mouse’])  # Add several members
+
+
+if ‘cat’ in list1:              # Membership test
+
+  list1.remove(‘cat’)           # Remove an element from a list
+
+
+#list1.remove(‘elephant’) - throws an error
+
+
+for item in list1:              # iterate over a list, step through its elements
+
+  print (item)
+
+
+print (‘Item Count:’, len(list1)) # get the number of list elements
+
+set1 = set(["cat", "dog"])      # Initialize a set from a list
+
+list3 = list(set1)              # Get a list from a set
+
+list4 = list3[:]                # A shallow list copy
+
+list3 == list4                  # True; equality check by value
+
+list3 is list4                  # False; identity check
+
+del list4[:]                    # Clear the contents of a list
+
+print (list1, list2, list3, list4)
+
+print (list3[1:3], list3[1:], list3[:2])   # Slices
+
+print (max(list3), min(list3), sum(list3)) # Aggregates
+
+
+How to count the frequency of the elements in a list?
+
+Example:
+
+>>> list = [1, 2, 3, 4]
+
+>>> y = [ x == 2 for x in list ]
+
+>>> y
+
+[False, True, False, False]
+
+>>> import collections
+
+>>> collections.Counter(y)
+
+Counter({False: 3, True: 1})
+
+
+
+Non-Continuous slices:
+
+>>> list = [i for i in range(10)]
+
+>>> list
+
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+>>> list[::2]
+
+[0, 2, 4, 6, 8]
+
+>>> list[1:7:2]
+
+[1, 3, 5]
+
+
+Sorting lists:  sort() vs. sorted()
+
+
+   sort()  =>  *Does not return* a sorted list. The sort() method must
+be called on a list.
+
+>>> list = [2, 3, 1, 'a', 'b']
+
+>>> list.sort()
+
+>>> list
+
+[1, 2, 3, 'a', 'b']
+
+
+   sorted() =>  Does return a sorted list.
+
+a = [5, 1, 4, 3]
+
+print sorted(a)  returns  [1, 3, 4, 5]
+
+print a  returns   [5, 1, 4, 3]
+
+
+strs = ['aa', 'BB', 'zz', 'CC']
+
+print sorted(strs)  ## ['BB', 'CC', 'aa', 'zz'] (case sensitive)
+
+print sorted(strs, reverse=True)   ## ['zz', 'aa', 'CC', 'BB']
+
+
+strs = ['ccc', 'aaaa', 'd', 'bb']
+
+print sorted(strs, key=len)  ## ['d', 'bb', 'ccc', 'aaaa']
+
+
+Example:  key=str.lower
+
+Specifying "str.lower" as the key function is a way to force the
+sorting to treat uppercase and lowercase the same:
+
+>>> strs = ['aa', 'BB', 'zz', 'CC']
+
+>>>  print sorted(strs, key=str.lower)  returns  ['aa', 'BB', 'CC', 'zz']
+
+
+Example1:  Sort strings by the last letter of the string.
+
+>>> strs = ['xc', 'zb', 'yd' ,'wa']
+
+
+   Write a little function that takes a string, and returns its last letter.
+
+   This will be the key function (takes in 1 value, returns 1 value).
+
+
+>>> def MyFn(s):
+
+         return s[-1]
+
+
+   Now pass key=MyFn to sorted() to sort by the last letter:
+
+
+>>> print sorted(strs, key=MyFn)  ## ['wa', 'zb', 'xc', 'yd']
+
+
+Example2:  Sort students by age.
+
+>>> student_tuples = [('john', 'A', 15),('jane', 'B', 12),('dave', 'B', 10),]
+
+
+>>> student_tuples
+
+[('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+
+
+>>> sorted(student_tuples, key=lambda student: student[2])
+
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+
+
+Pretty Print:
+
+>>> student_tuples = [
+
+        ('john', 'A', 15),
+
+        ('jane', 'B', 12),
+
+        ('dave', 'B', 10),
+
+]
+
+>>> sorted(student_tuples, key=lambda student: student[2])   # sort by age
+
+[('dave', 'B', 10), ('jane', 'B', 12), ('john', 'A', 15)]
+
+
+
+
+Example2:  Sort students by grade received.
+
+>>> sorted(student_tuples, key=lambda student: student[1])
+
+[('john', 'A', 15), ('jane', 'B', 12), ('dave', 'B', 10)]
+
+
+
+
+Example3: Sort email addresses by domain name.
+
+>>> emails_list_all
+
+['bree@gmail.com', 'cutepuppy@nyc.com.', 'ravi@tt.com', 'rosie@nyc.com']
+
+
+>>> sorted(emails_list_all, key=lambda x: x.split('@')[1])
+
+['bree@gmail.com', 'rosie@nyc.com', 'cutepuppy@nyc.com.', 'ravi@tt.com']
+
+
+
+
+Iteration:
+
+list1 = [1, 2, 3, 4]
+
+for item in list1:
+
+  print (item)
+
+
+
+for item in list:
+
+  if condition(item):
+
+    print (item)
+
+
+Removing:   list.pop
+
+list = [1, 2, 3, 4]
+
+list.pop() # Remove the last item
+
+list.pop(0) # Remove the first item , which is the item at index 0
+
+print (list)
+
+
+
+list = [1, 2, 3, 4]
+
+del list[1] # Remove the 2nd element; an alternative to list.pop(1)
+
+print (list)
+
+
+list = ["a", "a", "b"]
+
+list.remove("a") # Removes only the 1st occurrence of "a"
+
+print (list)
+
+
+Example1: list comprehension.
+
+list = [1, 2, 3, 4]
+
+newlist = [item for item in list if item >2]
+
+print newlist
+
+
+  Example2: list comprehension.
+
+>>> a
+
+[9, 2, 7, 4, 8, 2, 3, 6, 5, 0, 1, 9, 4, 6]
+
+
+>>> [x for x in a if x > 3]
+
+[9, 7, 4, 8, 6, 5, 9, 4, 6]
+
+
+  Example3:
+
+>>> list1 = range(1,101)
+
+
+>>> list2 = xrange(1,101)
+
+
+>>> sum1 = sum([x for x in list1 if x > 0])   ### Sum of a List Comprehension
+
+
+>>> sum2 = sum((x for x in list2 if x > 0))   ### Sum of a Generator
+
+                                                                   ###
+(Uses less memory and is faster)
+
+
+>>> reduce(lambda x,y: x + y, list1)          ### Reduce a list
+
+
+
+Copying:
+
+   Making a shallow copy:
+
+list1= [1, 'element']
+
+list2 = list1[:] # Copy using "[:]"
+
+list2[0] = 2 # Only affects list2, not list1
+
+print (list1[0]) # Displays 1
+
+
+
+# By contrast
+
+list1 = [1, 'element']
+
+list2 = list1
+
+list2[0] = 2 # Modifies the original list
+
+print (list1[0]) # Displays 2
+
+
+The above does not make a deep copy, which has the following consequence:
+
+list1 = [1, [2, 3]] # Notice the second item being a nested list
+
+list2 = list1[:] # A shallow copy
+
+list2[1][0] = 4 # Modifies the 2nd item of list1 as well
+
+print (list1[1][0]) # Displays 4 rather than 2
+
+
+   Making a deep copy:
+
+import copy
+
+list1 = [1, [2, 3]] # Notice the second item being a nested list
+
+list2 = copy.deepcopy(list1) # A deep copy
+
+list2[1][0] = 4 # Leaves the 2nd item of list1 unmodified
+
+print (list1[1][0]) # Displays 2
+
+
+Clearing:
+
+Clearing a list: Keywords: emptying a list, erasing a list, clear a
+list, empty a list, erase a list.
+
+================
+
+del list1[:] # Clear a list
+
+list1 = []   # Not really clear but rather assign to a new empty list
+
+
+Clearing using a proper approach makes a difference when the list is
+passed as an argument:
+
+===========================================================================================
+
+def workingClear(ilist):
+
+  del ilist[:]
+
+
+def brokenClear(ilist):
+
+  ilist = [] # Lets ilist point to a new list, losing the reference to
+the argument list
+
+
+>>> list1=[1, 2]; workingClear(list1); print (list1)
+
+>>> list1=[1, 2]; brokenClear(list1); print (list1)
+
+
+
+
+List methods:
+
+
+append(x):
+
+Add item x onto the end of the list.
+
+>>> list = [1, 2, 3]
+
+>>> list.append(4)
+
+>>> list
+
+          [1, 2, 3, 4]
+
+
+
+pop(i):
+
+Remove the item in the list at the index i and return it. If i is not
+given, remove the the last item in the list and return it.
+
+>>> list = [1, 2, 3, 4]
+
+>>> a = list.pop(0)
+
+>>> list
+
+          [2, 3, 4]
+
+>>> a
+
+          1
+
+>>> b = list.pop()
+
+>>>list
+
+          [2, 3]
+
+>>> b
+
+          4
+
+
+insert(i,x):
+
+insert object “x” at at index position “i”.
+
+>>> list = [1, 2, 3, 4]
+
+>>> list.insert(2,9)
+
+>>> list
+
+          [1, 2, 9, 3, 4]
+
+
+
+Operators:
+
+
+   in:
+
+      The operator 'in' is used for two purposes; either to iterate
+over every item in a list in a for
+
+          loop, or to check if a value is in a list returning true or false.
+
+
+Example:
+
+>>> list = [1, 2, 3, 4]
+
+
+>>> if 3 in list:
+
+>>>    ....
+
+
+Example:
+
+>>> l = [0, 1, 2, 3, 4]
+
+
+>>> 3 in l
+
+   True
+
+
+>>> 3 not in l
+
+   False
+
+
+>>> 18 in l
+
+   False
+
+
+>>>for x in l:
+
+>>>    print (x)
+
+   0
+
+   1
+
+   2
+
+   3
+
+   4
+
+
+
+Reverse a list:
+
+>>> l = [1, 2, 3, 4]
+
+>>> l
+
+[1, 2, 3, 4]
+
+>>> type(l)
+
+<type 'list'>
+
+>>> l.reverse()
+
+>>> l
+
+[4, 3, 2, 1]
+
+>>> l.reverse()
+
+>>> l
+
+[1, 2, 3, 4]
+
+>>> l[::-1]
+
+[4, 3, 2, 1]
+
+>>> l[::-2]
+
+[4, 2]

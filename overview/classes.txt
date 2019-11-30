@@ -1,0 +1,389 @@
+Classes:
+
+Class − A user-defined prototype for an object that defines a set of attributes that characterize any object of the class.  The attributes are data members (class variables and instance variables) and methods, accessed via dot notation.
+
+Class variable − A variable that is shared by all instances of a class.  Class variables are defined within a class but outside any of the class's methods.  Class variables are not used as frequently as instance variables are.
+
+Data member − A class variable or instance variable that holds data associated with a class and its objects.
+
+Function overloading − The assignment of more than one behavior to a particular function.  The operation performed varies by the types of objects or arguments involved.
+
+Instance variable − A variable that is defined inside a method and belongs only to the current instance of a class.
+
+Inheritance − The transfer of the characteristics of a class to other classes that are derived from it.
+
+Instance − An individual object of a certain class.  An object obj that belongs to a class Circle, for example, is an instance of the class Circle.
+
+Instantiation − The creation of an instance of a class.
+
+Method − A special kind of function that is defined in a class definition.
+
+Object − A unique instance of a data structure that is defined by its class.  An object comprises both data members (class variables and instance variables) and methods.
+
+Operator overloading − The assignment of more than one function to a particular operator.
+
+
+
+   Creating Classes:
+      NOTE:
+"ClassName.__doc__" gets the document string of a class.
+
+
+
+class Employee(object):
+   """
+   Common base class for all employees
+   """
+
+   empCount = 0
+
+   def __init__(self, name, salary):
+      self.name = name
+      self.salary = salary
+      Employee.empCount += 1
+
+   def displayCount(self):
+     print ("Total Employees %d" % Employee.empCount)
+
+   def displayEmployee(self):
+      print ("Name : ", self.name,  ", Salary: ", self.salary)
+
+
+The variable empCount is a class variable whose value is shared among all the instances of a in this class.  This can be accessed as Employee.empCount from inside the class or outside the class.
+
+The first method __init__() is a special method, which is called class constructor or initialization method that Python calls when you create a new instance of this class.
+
+You declare other class methods like normal functions with the exception that the first argument to each method is self.  Python adds the self argument to the list for you; you do not need to include it when you call the methods.
+
+
+
+
+   Creating Instance Objects:
+
+To create instances of a class, you call the class using class name and pass in whatever arguments its __init__ method accepts.
+
+
+This would create the first object of Employee class.
+emp1 = Employee("Jane", 123)
+
+This would create the second object of Employee class.
+emp2 = Employee("John", 130)
+
+This would create the third object of Employee class.
+emp3 = Employee("Dave", 133)
+
+
+
+   Accessing Attributes:
+You access the object's attributes using the dot operator with object. Class variable would be accessed using class name as follows:
+
+emp1.displayEmployee()
+emp2.displayEmployee()
+emp3.displayEmployee()
+print ("Total Employee %d" % Employee.empCount)
+
+
+
+   Add,Remove or Modify attributes of classes and objects:
+
+emp1.age = '33'    # Add 'age' attribute.
+emp1.salary = 129  # Modify an 'salary' attribute.
+del emp1.age       # Delete 'age' attribute.
+
+
+   Built-In functions:
+
+setattr(emp1, 'salary', 128) # Set attribute 'salary' at 7000
+hasattr(emp1, 'salary')      # Returns true if 'salary' attribute exists
+getattr(emp1, 'salary')      # Returns value of 'salary' attribute
+delattr(emp1, 'salary')      # Delete attribute 'salary'
+
+
+
+   Built-In Class Attributes
+
+    __dict__      Dictionary containing the class's namespace.
+
+    __doc__       Class documentation string or none, if undefined.
+
+    __name__      Class name.
+
+    __module__    Module name in which the class is defined.
+                  This attribute is "__main__" in interactive mode.
+
+    __bases__     A possibly empty tuple containing the base classes,
+                  in the order of their occurrence in the base class list.
+
+
+
+
+
+   Destroying Objects (Garbage Collection)
+
+Python deletes unneeded objects (built-in types or class instances) automatically to free the memory space. The process by which Python periodically reclaims blocks of memory that no longer are in use is termed as Garbage Collection.
+
+Python's garbage collector runs during program execution and is triggered when an object's reference count reaches zero. An object's reference count changes as the number of aliases that point to it changes.
+
+An object's reference count increases when it is assigned a new name or placed in a container (list, tuple, or dictionary). The object's reference count decreases when it is deleted with del, its reference is reassigned, or its reference goes out of scope. When an object's reference count reaches zero, Python collects it automatically.
+
+a = 40      # Create object <40>
+b = a       # Increase ref. count  of <40>
+c = [b]     # Increase ref. count  of <40>
+
+del a       # Decrease ref. count  of <40>
+b = 100     # Decrease ref. count  of <40>
+c[0] = -1   # Decrease ref. count  of <40>
+
+You normally will not notice when the garbage collector destroys an orphaned instance and reclaims its space. However, a class can implement the special method __del__(), called a destructor, that is invoked when the instance is about to be destroyed. This method might be used to clean up any non-memory resources used by an instance.
+
+
+
+
+   Example: (Garbage Collection)
+
+#!/usr/bin/python3
+
+class Point(object):
+   def __init__( self, x=0, y=0):
+      self.x = x
+      self.y = y
+   def __del__(self):
+      class_name = self.__class__.__name__
+      print (class_name, "destroyed")
+
+pt1 = Point()
+pt2 = pt1
+pt3 = pt1
+print (id(pt1), id(pt2), id(pt3))   # prints the ids of the obejcts
+del pt1
+del pt2
+del pt3
+
+
+   Output:
+140338326963984 140338326963984 140338326963984
+Point destroyed
+
+
+
+   Importing a class:
+
+#!/usr/bin/python3
+import point
+
+p1 = point.Point()
+
+
+
+
+   Class Inheritance:
+
+Instead of starting from a scratch, you can create a class by deriving it from a pre-existing class by listing the parent class in parentheses after the new class name.
+
+The child class inherits the attributes of its parent class, and you can use those attributes as if they were defined in the child class. A child class can also override data members and methods from the parent.
+
+
+   Example:
+
+
+#!/usr/bin/python3
+
+class Parent(object):        # define parent class
+   parentAttr = 100
+   def __init__(self):
+      print ("Calling parent constructor")
+
+   def parentMethod(self):
+      print ('Calling parent method')
+
+   def setAttr(self, attr):
+      Parent.parentAttr = attr
+
+   def getAttr(self):
+      print ("Parent attribute :", Parent.parentAttr)
+
+class Child(Parent): # define child class
+   def __init__(self):
+      print ("Calling child constructor")
+
+   def childMethod(self):
+      print ('Calling child method')
+
+c = Child()          # instance of child
+c.childMethod()      # child calls its method
+c.parentMethod()     # calls parent's method
+c.setAttr(200)       # again call parent's method
+c.getAttr()          # again call parent's method
+
+
+
+   Output:
+Calling child constructor
+Calling child method
+Calling parent method
+Parent attribute : 200
+
+
+
+   Multiple Class Inheritance:
+
+class A:        # define your class A
+.....
+
+class B:         # define your calss B
+.....
+
+class C(A, B):   # subclass of A and B
+
+
+issubclass(sub, sup)
+isinstance(obj, Class)
+
+
+
+   Overriding Methods:
+
+   Example:
+
+
+#!/usr/bin/python3.6
+
+class Parent:        # define parent class
+   def myMethod(self):
+      print('Calling parent method')
+
+class Child(Parent): # define child class
+   def myMethod(self):
+      print('Calling child method')
+
+c = Child()          # instance of child
+c.myMethod()         # child calls overridden method
+
+
+
+   Output:
+Calling child method
+
+
+
+
+   Base Overloading Methods:
+
+
+  __init__ ( self [,args...] )
+
+Constructor (with any optional arguments)
+
+Sample Call : obj = className(args)
+
+
+  __del__( self )
+
+Destructor, deletes an object
+
+Sample Call : del obj
+
+
+  __repr__( self )
+
+Evaluatable string representation
+
+Sample Call : repr(obj)
+
+
+  __str__( self )
+
+Printable string representation
+
+Sample Call : str(obj)
+
+
+  __cmp__ ( self, x )
+
+Object comparison
+
+Sample Call : cmp(obj, x)
+
+
+
+
+
+
+
+   Overloading Operators:
+
+Suppose you have created a Vector class to represent two-dimensional vectors. What happens when you use the plus operator to add them? Most likely Python will error out.
+
+You could, however, define the __add__ method in your class to perform vector addition and then the plus operator would behave as per expectation.
+
+
+   Example:
+
+
+#!/usr/bin/python3
+
+class Vector:
+   def __init__(self, a, b):
+      self.a = a
+      self.b = b
+
+   def __str__(self):
+      return 'Vector (%d, %d)' % (self.a, self.b)
+
+   def __add__(self,other):
+      return Vector(self.a + other.a, self.b + other.b)
+
+v1 = Vector(2,10)
+v2 = Vector(5,-2)
+print (v1 + v2)
+
+
+   Output:
+Vector(7,8)
+
+
+
+   Data Hiding:
+
+An object's attributes may or may not be visible outside the class definition. You need to name attributes with a double underscore prefix, and those attributes then will not be directly visible to outsiders.
+
+   Example
+
+
+#!/usr/bin/python3
+
+class JustCounter:
+   __secretCount = 0
+
+   def count(self):
+      self.__secretCount += 1
+      print (self.__secretCount)
+
+counter = JustCounter()
+counter.count()
+counter.count()
+print (counter.__secretCount)
+
+When the above code is executed, it produces the following result −
+
+1
+2
+Traceback (most recent call last):
+   File "test.py", line 12, in <module>
+      print counter.__secretCount
+AttributeError: JustCounter instance has no attribute '__secretCount'
+
+
+
+
+
+Python protects those members by internally changing the name to include the class name. You can access such attributes as object._className__attrName. If you would replace your last line as following, then it works for you −
+
+.........................
+print (counter._JustCounter__secretCount)
+
+When the above code is executed, it produces the following result −
+
+1
+2
+2

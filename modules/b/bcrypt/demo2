@@ -1,0 +1,18 @@
+Generate Password:
+
+>>> from bcrypt import checkpw, gensalt, hashpw
+
+>>> password1 = '123'
+
+>>> hashed_password = hashpw(password1.encode('utf8'), gensalt())
+>>> hashed_password
+b'$2b$12$J4OZ8zqZ7mEEehx3fPIeH.g09nfXEkWA2ujel8FGWWavQ90meP7qe'
+
+>>> password2 = '123'
+>>> password3 = '333'
+
+>>> checkpw(password2.encode('utf8'), hashed_password)
+True
+
+>>> checkpw(password3.encode('utf8'), hashed_password)
+False

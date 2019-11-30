@@ -1,0 +1,40 @@
+Q: What is the benefit of using the Python logging module?
+
+The ability to create new handlers with higher- or lower-severity
+filters can be very helpful when writing and testing an application.
+Instead of using many print statements for debugging, use
+logger.debug: Unlike the print statements, which you will have to
+delete or comment out later, the logger.debug statements can remain
+intact in the source code and remain dormant until you need them
+again. At that time, the only change that needs to happen is to modify
+the severity level of the logger and/or handler to debug.
+
+
+Q: What are the advanced Python logging components?
+
+Logger
+Handler
+Formater
+Filter
+
+
+Q: What are Python's logging config options?
+
+logging.basicConfig(format='%(asctime)s:%(levelname)s:%(module)s:%(funcName)s:%(message)s',
+                    filename='example.log',
+                    filemode='w',
+                    datefmt='%m/%d/%Y %I:%M:%S %p',
+                    level=logging.DEBUG)
+
+
+Q: Where can you write Python log messages to?
+
+console,
+files,
+email via SMTP,
+HTTP GET/POST locations,
+generic sockets,
+OS-specific logging mechanisms such as syslog
+
+
+

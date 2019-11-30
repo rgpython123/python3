@@ -1,0 +1,122 @@
+Strings
+
+- s.isalnum(), s.isalpha(), s.isdigit(), s.islower(), s.isupper(), s.istitle(), s.isspace()
+
+- s.lower(), s.upper(), s.swapcase(), s.title(), s.capitalize()
+
+- s.count('a')   {case-sensitive}
+
+- s.find('a'), s.rfind('c'), s.index('b'), s.rindex('d')
+
+- s.ljust(6), s.rjust(6), s.center(6)  justifies a string into a given field size (the rest is padded with spaces)
+
+- s.strip(), s.rstrip(), s.lstrip()
+
+- s.expandtabs(4)
+
+- s.replace('r', 'R')
+- Reversing Strings: s[::-1]
+
+- Slicing Strings: s[1:6]
+- s.split(','), s.splitlines(), ' '.join(list)
+
+- List  Conversion: list(s)
+- Tuple Conversion: tuple(s)
+- Set   Conversion: set(s)
+
+
+
+
+
+
+  Examples:
+
+>>> s = """
+
+... One line
+
+... Two lines
+
+... Red lines
+
+... Blue lines
+
+... Green lines
+
+... """
+
+>>> s.split('\n')
+
+['', 'One line', 'Two lines', 'Red lines', 'Blue lines', 'Green lines', '']
+
+>>> s.splitlines()
+
+['', 'One line', 'Two lines', 'Red lines', 'Blue lines', 'Green lines']
+
+
+- join
+
+  Example:
+
+           >>> seq = ['1', '2', '3', '4', '5']
+
+            Ex 1) >>> ' '.join(seq) =>'1 2 3 4 5'
+
+            Ex 2) >>> '+'.join(seq) => '1+2+3+4+5'
+
+
+
+
+- Indexed & Sliced
+
+  Example:
+
+- Strings act like lists and can be indexed & sliced.
+
+   >>> a = 'hello'
+
+   >>> a[0] returns 'h'
+
+   >>> a[2] returns 'l'
+
+   >>> a[1:4] returns 'ell'
+
+
+- List Conversion
+
+  Example:
+
+- Strings can be converted into lists.
+
+   >>> a = 'hello'
+
+   >>> b = list(a)
+
+   >>> b returns ['h', 'e', 'l', 'l', 'o']
+
+
+- Tuple Conversion
+
+  Example:
+
+- Strings can be converted into tuples.
+
+   >>> a = 'hello'
+
+   >>> b = tuple(a)
+
+   >>> b returns ('h', 'e', 'l', 'l', 'o')
+
+
+- Set Conversion
+
+  Example:
+
+- Strings can be converted into sets.
+
+   >>> a = 'hello'
+
+   >>> b = set(a)
+
+   >>> b returns set(['h', 'e', 'l', 'o'])
+
